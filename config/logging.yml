@@ -1,0 +1,65 @@
+version: 1
+disable_existing_loggers: false
+
+formatters:
+  default:
+    format: '%(asctime)s | %(levelname)-8s | %(name)s:%(funcName)s:%(lineno)d - %(message)s'
+    datefmt: '%Y-%m-%d %H:%M:%S'
+
+  detailed:
+    format: '%(asctime)s | %(levelname)-8s | %(name)s | %(funcName)s:%(lineno)d | %(process)d:%(thread)d - %(message)s'
+    datefmt: '%Y-%m-%d %H:%M:%S'
+
+  json:
+    class: pythonjsonlogger.jsonlogger.JsonFormatter
+    format: '%(asctime)s %(name)s %(levelname)s %(funcName)s %(lineno)d %(message)s'
+
+handlers:
+  console:
+    class: logging.StreamHandler
+    level: DEBUG
+    formatter: default
+    stream: ext://sys.stdout
+
+  file:
+    class: logging.handlers.RotatingFileHandler
+    level: INFO
+    formatter: detailed
+    filename: data/logs/quantum_trading.log
+    maxBytes: 104857600  # 100MB
+    backupCount: 10
+    encoding: utf8
+
+  error_file:
+    class: logging.handlers.RotatingFileHandler
+    level: ERROR
+    formatter: detailed
+    filename: data/logs/errors.log
+    maxBytes: 104857600  # 100MB
+    backupCount: 10
+    encoding: utf8
+
+loggers:
+  quantum_engine:
+    level: DEBUG
+    handlers: [console, file]
+    propagate: false
+
+  api:
+    level: INFO
+    handlers: [console, file]
+    propagate: false
+
+  database:
+    level: INFO
+    handlers: [console, file]
+    propagate: false
+
+  telegram:
+    level: INFO
+    handlers: [console, file]
+    propagate: false
+
+root:
+  level: INFO
+  handlers: [console, file, error_file]
