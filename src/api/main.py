@@ -1,9 +1,10 @@
 """FastAPI application main entry point."""
 
+from contextlib import asynccontextmanager
 from fastapi import FastAPI, Request, status
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
-from datetime import datetime
+from datetime import datetime, timezone
 from loguru import logger
 
 from .routes import router
@@ -12,6 +13,24 @@ from ..utils.config import get_settings
 
 settings = get_settings()
 
+
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    """Application lifespan handler."""
+    # Startup
+    logger.info("=" * 50)
+    logger.info("Quantum Trading AI API Starting...")
+    logger.info(f"Environment: {settings.app_env}")
+    logger.info(f"Debug Mode: {settings.debug}")
+    logger.info(f"CORS Origins: {settings.cors_origins_list}")
+    logger.info("=" * 50)
+
+    yield
+
+    # Shutdown
+    logger.info("Quantum Trading AI API Shutting Down...")
+
+
 # Create FastAPI application
 app = FastAPI(
     title="Quantum Trading AI API",
@@ -19,6 +38,7 @@ app = FastAPI(
     version="1.0.0",
     docs_url="/docs" if settings.debug else None,
     redoc_url="/redoc" if settings.debug else None,
+    lifespan=lifespan,
 )
 
 # CORS middleware
@@ -35,11 +55,11 @@ app.add_middleware(
 @app.middleware("http")
 async def log_requests(request: Request, call_next):
     """Log all HTTP requests."""
-    start_time = datetime.utcnow()
+    start_time = datetime.now(timezone.utc)
 
     response = await call_next(request)
 
-    duration = (datetime.utcnow() - start_time).total_seconds()
+    duration = (datetime.now(timezone.utc) - start_time).total_seconds()
 
     logger.info(
         f"{request.method} {request.url.path} - {response.status_code} ({duration:.3f}s)",
@@ -81,7 +101,7 @@ async def health_check():
     return HealthResponse(
         status="healthy",
         version="1.0.0",
-        timestamp=datetime.utcnow(),
+        timestamp=datetime.now(timezone.utc),
     )
 
 
@@ -104,25 +124,6 @@ async def root():
 
 # Include routers
 app.include_router(router)
-
-
-# Startup event
-@app.on_event("startup")
-async def startup_event():
-    """Application startup tasks."""
-    logger.info("=" * 50)
-    logger.info("Quantum Trading AI API Starting...")
-    logger.info(f"Environment: {settings.app_env}")
-    logger.info(f"Debug Mode: {settings.debug}")
-    logger.info(f"CORS Origins: {settings.cors_origins_list}")
-    logger.info("=" * 50)
-
-
-# Shutdown event
-@app.on_event("shutdown")
-async def shutdown_event():
-    """Application shutdown tasks."""
-    logger.info("Quantum Trading AI API Shutting Down...")
 
 
 if __name__ == "__main__":

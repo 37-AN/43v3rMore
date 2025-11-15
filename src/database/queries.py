@@ -2,7 +2,7 @@
 
 from typing import Optional, List, Dict
 from uuid import UUID
-from datetime import datetime, timedelta
+from datetime import datetime, timezone, timezone, timedelta
 from loguru import logger
 
 from .supabase import get_supabase_client
@@ -61,7 +61,7 @@ class UserQueries:
     def update_user(self, user_id: UUID, updates: Dict) -> Optional[User]:
         """Update user."""
         try:
-            updates["updated_at"] = datetime.utcnow().isoformat()
+            updates["updated_at"] = datetime.now(timezone.utc).isoformat()
             result = self.db.update("users", updates, {"id": str(user_id)})
             if result:
                 logger.info(f"User updated: {user_id}")
@@ -122,7 +122,7 @@ class SubscriptionQueries:
     ) -> Optional[Subscription]:
         """Update subscription."""
         try:
-            updates["updated_at"] = datetime.utcnow().isoformat()
+            updates["updated_at"] = datetime.now(timezone.utc).isoformat()
             result = self.db.update(
                 "subscriptions", updates, {"id": str(subscription_id)}
             )
@@ -137,7 +137,7 @@ class SubscriptionQueries:
     def get_due_subscriptions(self) -> List[Subscription]:
         """Get subscriptions due for billing."""
         try:
-            today = datetime.utcnow().date().isoformat()
+            today = datetime.now(timezone.utc).date().isoformat()
             subs = self.db.select(
                 "subscriptions",
                 filters={"status": "active"},
@@ -220,7 +220,7 @@ class SignalQueries:
     def get_signal_performance(self, days: int = 30) -> Dict:
         """Get signal performance statistics."""
         try:
-            since = (datetime.utcnow() - timedelta(days=days)).isoformat()
+            since = (datetime.now(timezone.utc) - timedelta(days=days)).isoformat()
 
             # This would use a Supabase function for complex queries
             # For now, return basic structure
@@ -250,7 +250,7 @@ class AnalyticsQueries:
                 "event_type": event_type,
                 "user_id": str(user_id) if user_id else None,
                 "data": data,
-                "timestamp": datetime.utcnow().isoformat(),
+                "timestamp": datetime.now(timezone.utc).isoformat(),
             }
 
             result = self.db.insert("analytics_events", event)

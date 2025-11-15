@@ -251,17 +251,29 @@ class MT5Connector:
         base_price = 1.1000 if "EUR" in symbol else 1.2500
         volatility = 0.001
 
-        times = pd.date_range(end=datetime.now(), periods=count, freq="H")
+        times = pd.date_range(end=datetime.now(), periods=count, freq="h")
         returns = np.random.normal(0, volatility, count)
-        prices = base_price * (1 + returns).cumprod()
+        close_prices = base_price * (1 + returns).cumprod()
+
+        # Generate OHLC with proper consistency
+        open_prices = np.zeros(count)
+        high_prices = np.zeros(count)
+        low_prices = np.zeros(count)
+
+        for i in range(count):
+            open_prices[i] = close_prices[i] * (1 + np.random.uniform(-0.0001, 0.0001))
+            # Ensure high is the maximum of open and close, plus a random amount
+            high_prices[i] = max(open_prices[i], close_prices[i]) * (1 + np.random.uniform(0, 0.0005))
+            # Ensure low is the minimum of open and close, minus a random amount
+            low_prices[i] = min(open_prices[i], close_prices[i]) * (1 - np.random.uniform(0, 0.0005))
 
         df = pd.DataFrame(
             {
                 "time": times,
-                "open": prices * (1 + np.random.uniform(-0.0001, 0.0001, count)),
-                "high": prices * (1 + np.random.uniform(0, 0.0005, count)),
-                "low": prices * (1 + np.random.uniform(-0.0005, 0, count)),
-                "close": prices,
+                "open": open_prices,
+                "high": high_prices,
+                "low": low_prices,
+                "close": close_prices,
                 "tick_volume": np.random.randint(100, 1000, count),
             }
         )

@@ -2,7 +2,7 @@
 
 from typing import Optional, Union
 from decimal import Decimal, ROUND_HALF_UP
-from datetime import datetime, timezone
+from datetime import datetime, timezone, timezone
 from loguru import logger
 
 

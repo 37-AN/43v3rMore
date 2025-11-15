@@ -2,7 +2,7 @@
 
 from typing import Dict, List, Optional
 from dataclasses import dataclass, asdict
-from datetime import datetime
+from datetime import datetime, timezone, timezone
 import numpy as np
 import pandas as pd
 from loguru import logger
@@ -28,7 +28,7 @@ class TradingSignal:
     def __post_init__(self):
         """Initialize default values."""
         if self.timestamp is None:
-            self.timestamp = datetime.utcnow()
+            self.timestamp = datetime.now(timezone.utc)
         if self.metadata is None:
             self.metadata = {}
 
@@ -307,8 +307,8 @@ class SignalGenerator:
                 max_price = np.max(prices)
                 min_price = np.min(prices)
 
-                hit_tp = max_price >= signal.take_profit if signal.take_profit else False
-                hit_sl = min_price <= signal.stop_loss if signal.stop_loss else False
+                hit_tp = bool(max_price >= signal.take_profit) if signal.take_profit else False
+                hit_sl = bool(min_price <= signal.stop_loss) if signal.stop_loss else False
 
                 if hit_sl:
                     exit_price = signal.stop_loss
@@ -318,14 +318,14 @@ class SignalGenerator:
                     win = True
                 else:
                     exit_price = prices[-1]
-                    win = exit_price > entry
+                    win = bool(exit_price > entry)
 
             else:  # SELL
                 max_price = np.max(prices)
                 min_price = np.min(prices)
 
-                hit_tp = min_price <= signal.take_profit if signal.take_profit else False
-                hit_sl = max_price >= signal.stop_loss if signal.stop_loss else False
+                hit_tp = bool(min_price <= signal.take_profit) if signal.take_profit else False
+                hit_sl = bool(max_price >= signal.stop_loss) if signal.stop_loss else False
 
                 if hit_sl:
                     exit_price = signal.stop_loss
@@ -335,7 +335,7 @@ class SignalGenerator:
                     win = True
                 else:
                     exit_price = prices[-1]
-                    win = exit_price < entry
+                    win = bool(exit_price < entry)
 
             profit_pct = ((exit_price - entry) / entry) * 100
             if signal.action == "SELL":

@@ -214,7 +214,7 @@ class Migration:
         return "\n\n".join(
             [
                 "-- Quantum Trading AI Database Schema",
-                "-- Generated: " + str(__import__("datetime").datetime.utcnow()),
+                "-- Generated: " + str(__import__("datetime").datetime.now(timezone.utc)),
                 "",
                 "-- Users Table",
                 USERS_TABLE,

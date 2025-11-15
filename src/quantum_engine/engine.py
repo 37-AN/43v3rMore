@@ -1,7 +1,7 @@
 """Main Quantum Trading Engine orchestrating all components."""
 
 from typing import List, Optional, Dict
-from datetime import datetime
+from datetime import datetime, timezone, timezone
 import pandas as pd
 from loguru import logger
 
@@ -224,7 +224,7 @@ class QuantumTradingEngine:
         """
         try:
             summary = {
-                "timestamp": datetime.utcnow().isoformat(),
+                "timestamp": datetime.now(timezone.utc).isoformat(),
                 "symbols_configured": len(self.symbols),
                 "mt5_connected": self.mt5.connected,
                 "confidence_threshold": self.confidence_threshold,
@@ -278,7 +278,7 @@ class QuantumTradingEngine:
 
         # Prepare results
         results = {
-            "timestamp": datetime.utcnow().isoformat(),
+            "timestamp": datetime.now(timezone.utc).isoformat(),
             "symbols_analyzed": len(self.symbols),
             "signals_generated": len(signals),
             "signals": [s.to_dict() for s in signals],

@@ -53,7 +53,8 @@ class Settings(BaseSettings):
 
     # Anthropic Claude
     anthropic_api_key: str = ""
-    claude_model: str = "claude-3-sonnet-20240229"
+    # Use Claude Haiku 4.5 as the default model for all clients
+    claude_model: str = "claude-haiku-4.5"
 
     # Telegram
     telegram_bot_token: str = ""

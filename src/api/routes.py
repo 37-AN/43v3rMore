@@ -1,7 +1,7 @@
 """API route definitions."""
 
 from typing import List
-from datetime import datetime
+from datetime import datetime, timezone, timezone, timedelta
 from fastapi import APIRouter, Depends, HTTPException, status
 from uuid import UUID
 from loguru import logger
@@ -68,7 +68,7 @@ async def get_signals(
         return SignalListResponse(
             signals=signal_responses,
             count=len(signal_responses),
-            timestamp=datetime.utcnow(),
+            timestamp=datetime.now(timezone.utc),
         )
 
     except Exception as e:
@@ -262,17 +262,15 @@ async def create_subscription(
         monthly_fee = plan_prices.get(subscription_data.plan, 500)
 
         # Create subscription
-        from datetime import timedelta
-
         sub_data = {
             "user_id": str(user.id),
             "plan": subscription_data.plan,
             "monthly_fee": monthly_fee,
             "currency": settings.currency,
             "status": "active",
-            "current_period_start": datetime.utcnow().isoformat(),
-            "current_period_end": (datetime.utcnow() + timedelta(days=30)).isoformat(),
-            "next_billing_date": (datetime.utcnow() + timedelta(days=30)).isoformat(),
+            "current_period_start": datetime.now(timezone.utc).isoformat(),
+            "current_period_end": (datetime.now(timezone.utc) + timedelta(days=30)).isoformat(),
+            "next_billing_date": (datetime.now(timezone.utc) + timedelta(days=30)).isoformat(),
             "payment_method": subscription_data.payment_method,
         }
 

@@ -90,7 +90,7 @@ class ConnectionManager:
         message = {
             "type": "trading_signal",
             "data": signal_data,
-            "timestamp": str(__import__("datetime").datetime.utcnow()),
+            "timestamp": str(__import__("datetime").datetime.now(timezone.utc)),
         }
 
         await self.broadcast(message)

@@ -1,7 +1,7 @@
 """Subscription management service."""
 
 from typing import Optional
-from datetime import datetime, timedelta
+from datetime import datetime, timezone, timedelta
 from uuid import UUID
 from loguru import logger
 
@@ -32,9 +32,9 @@ class SubscriptionManager:
                 "monthly_fee": monthly_fee,
                 "currency": "ZAR",
                 "status": "active",
-                "current_period_start": datetime.utcnow().isoformat(),
-                "current_period_end": (datetime.utcnow() + timedelta(days=30)).isoformat(),
-                "next_billing_date": (datetime.utcnow() + timedelta(days=30)).isoformat(),
+                "current_period_start": datetime.now(timezone.utc).isoformat(),
+                "current_period_end": (datetime.now(timezone.utc) + timedelta(days=30)).isoformat(),
+                "next_billing_date": (datetime.now(timezone.utc) + timedelta(days=30)).isoformat(),
             }
 
             subscription = self.sub_queries.create_subscription(sub_data)

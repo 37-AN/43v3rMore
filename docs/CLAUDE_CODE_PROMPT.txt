@@ -1,0 +1,207 @@
+# CLAUDE CODE - QUICK START COMMAND
+
+## Copy and paste this entire prompt into Claude Code:
+
+---
+
+You are building a **Quantum Trading AI Startup** for South Africa. Goal: R0→R100K MRR in 6 months, zero capital.
+
+**CONTEXT:**
+- Entrepreneur: Ethan Barnes, IT Engineer (SCADA, SQL, C#, industrial automation)
+- Tech: Qiskit (quantum), MT5 (trading), Claude AI (automation), FastAPI, Supabase
+- Innovation: MQL5 Article 17171 - Quantum Phase Estimation for 95%+ signal accuracy
+- Constraints: Part-time dev, 8GB RAM, free tools only
+
+**PROJECT STRUCTURE:**
+```
+quantum-trading-business/
+├── .claude/                    # Context for you
+│   ├── project_context.md     # Mission & requirements
+│   ├── architecture.md         # System design
+│   ├── coding_standards.md     # Code quality
+│   └── development_workflow.md # Process
+├── src/
+│   ├── quantum_engine/         # QPE trading signals (Qiskit + MT5)
+│   ├── mcp_servers/            # Business automation (Claude API)
+│   ├── api/                    # FastAPI backend
+│   ├── database/               # Supabase integration
+│   ├── communication/          # Telegram, WhatsApp, Email
+│   ├── payments/               # PayFast billing
+│   └── utils/                  # Config, logging, helpers
+├── tests/                      # Comprehensive test suite
+├── scripts/                    # Setup, deploy, monitor
+├── docs/                       # Documentation
+└── data/                       # Logs, backtest results
+```
+
+**PHASE 1 TASKS (Week 1-2):**
+
+**Task 1.1** - Initialize project structure with all directories
+**Task 1.2** - Build quantum trading engine (engine.py, qpe.py, mt5_connector.py)
+**Task 1.3** - Create FastAPI backend (main.py, routes.py, auth.py)
+**Task 1.4** - Set up Supabase database layer (models.py, migrations.py)
+**Task 1.5** - Implement Telegram bot (telegram.py with signal delivery)
+**Task 1.6** - Docker configuration (docker-compose.yml, Dockerfile)
+**Task 1.7** - Testing infrastructure (pytest, coverage, CI)
+**Task 1.8** - Logging and monitoring (loguru setup)
+
+**CODE STANDARDS:**
+- Type hints everywhere: `def func(x: str) -> int:`
+- Docstrings (Google style) for all public functions
+- Comprehensive logging: `logger.info("Operation", extra={context})`
+- Error handling: Try/except with specific exceptions
+- Tests alongside code: 80%+ coverage
+- PEP 8 compliance (Black formatter)
+
+**AFTER EVERY TASK:**
+1. ✅ Update CHANGELOG.md with changes
+2. ✅ Add logging to all functions
+3. ✅ Write tests (pytest)
+4. ✅ Provide verification commands
+5. ✅ Show execution logs
+
+**OUTPUT FORMAT:**
+```markdown
+## ✅ Task 1.X Completed: [Name]
+
+### Files Created
+- src/module/file.py (created)
+- tests/test_file.py (created)
+
+### Implementation
+[Brief description + key code snippet]
+
+### Tests
+- test_function_x() - Description
+- test_edge_case_y() - Description
+
+### Changelog
+```markdown
+### Added
+- [Component] Feature description
+```
+
+### Verification
+```bash
+# Run these to verify
+pytest tests/test_file.py -v
+python -m src.module.file
+```
+
+### Logs
+```
+2025-12-01 10:30:45 | INFO | Task started
+2025-12-01 10:35:20 | SUCCESS | Implementation complete
+```
+```
+
+**CRITICAL RULES:**
+1. 🔴 ALWAYS read .claude/ context files before coding
+2. 🔴 ALWAYS add comprehensive logging with loguru
+3. 🔴 ALWAYS update CHANGELOG.md after changes
+4. 🔴 ALWAYS write tests for new code
+5. 🔴 ALWAYS use type hints and docstrings
+6. 🔴 NEVER hardcode secrets (use .env)
+7. 🔴 NEVER skip error handling
+8. 🟡 Optimize for token efficiency (concise names, avoid redundancy)
+9. 🟡 Follow security best practices
+10. 🟡 Keep code DRY and modular
+
+**KEY FILES TO CREATE FIRST:**
+
+**1. .claude/project_context.md:**
+```markdown
+# Project: Quantum Trading AI Startup
+Mission: Autonomous AI trading business → R100K MRR/6mo
+Tech: Qiskit QPE (99% accuracy) + Claude MCP + MT5 + Supabase
+Business: Signal subs (R500-2K) + Bot licenses (R3K) + Enterprise (R10K)
+Target: SA market (28M users, R1.2T investment market)
+Constraints: Zero capital, free tools only, part-time dev
+Success: Month 1: R5K | Month 3: R25K | Month 6: R100K
+```
+
+**2. src/quantum_engine/engine.py skeleton:**
+```python
+from qiskit import QuantumCircuit
+import MetaTrader5 as mt5
+from loguru import logger
+from typing import List, Dict
+import numpy as np
+
+class QuantumTradingEngine:
+    """Quantum-powered trading signal generator."""
+    
+    def __init__(self, symbols: List[str], timeframe: str = 'H1'):
+        """Initialize quantum trading engine."""
+        logger.info(f"Initializing engine for {symbols}")
+        self.symbols = symbols
+        # TODO: Implement QPE, MT5 connection, signal generation
+    
+    @logger.catch
+    def quantum_phase_estimation(self, prices: np.ndarray) -> Dict:
+        """Perform QPE for cycle detection."""
+        logger.info("Running QPE analysis")
+        # TODO: Implement Qiskit QPE algorithm
+        pass
+    
+    def generate_signal(self, symbol: str) -> Dict:
+        """Generate trading signal with confidence."""
+        logger.info(f"Generating signal for {symbol}")
+        # TODO: Combine quantum + classical analysis
+        return {
+            "symbol": symbol,
+            "action": "BUY",  # or SELL, HOLD
+            "confidence": 0.87,
+            "entry": 1.0950,
+            "stop_loss": 1.0920,
+            "take_profit": 1.1010
+        }
+```
+
+**3. src/api/main.py skeleton:**
+```python
+from fastapi import FastAPI, HTTPException
+from fastapi.middleware.cors import CORSMiddleware
+from loguru import logger
+import uvicorn
+
+app = FastAPI(title="Quantum Trading API", version="1.0.0")
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
+@app.get("/")
+async def root():
+    logger.info("Root endpoint accessed")
+    return {"message": "Quantum Trading AI", "status": "operational"}
+
+@app.get("/health")
+async def health():
+    return {"status": "healthy", "version": "1.0.0"}
+
+@app.get("/api/v1/signals")
+async def get_signals():
+    """Get all trading signals."""
+    logger.info("Fetching signals")
+    # TODO: Call quantum engine
+    return {"signals": []}
+
+if __name__ == "__main__":
+    uvicorn.run(app, host="0.0.0.0", port=8000)
+```
+
+**START WITH:**
+1. Create complete directory structure
+2. Initialize .claude context files
+3. Implement quantum_engine/engine.py with QPE
+4. Build FastAPI backend with /signals endpoint
+5. Set up Supabase database layer
+6. Create Telegram bot for delivery
+7. Write comprehensive tests
+8. Document everything
+
+**EXECUTE TASK 1.1 NOW** and show me the complete output.

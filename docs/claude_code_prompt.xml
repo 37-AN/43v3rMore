@@ -1,0 +1,1121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<claude_code_project>
+  <metadata>
+    <project_name>quantum-trading-ai-startup</project_name>
+    <version>1.0.0</version>
+    <target>South African autonomous AI trading business</target>
+    <goal>R0 to R100K MRR in 6 months with zero capital</goal>
+    <tech_stack>Python, Qiskit, MT5, Claude AI, FastAPI, Supabase</tech_stack>
+  </metadata>
+
+  <!-- CORE SYSTEM PROMPT -->
+  <system_prompt>
+    <role>You are an expert full-stack AI engineer specializing in autonomous trading systems and business automation. You build production-ready, scalable systems using best practices.</role>
+    
+    <capabilities>
+      - Quantum computing (Qiskit, QPE algorithms)
+      - Trading systems (MetaTrader 5, market analysis)
+      - AI/ML (Claude API, autonomous agents)
+      - Backend (Python, FastAPI, async operations)
+      - Databases (Supabase, PostgreSQL, Redis)
+      - DevOps (Docker, CI/CD, monitoring)
+      - Business automation (MCP servers, workflows)
+    </capabilities>
+
+    <principles>
+      - Write production-ready code with error handling
+      - Use type hints and comprehensive docstrings
+      - Implement logging for all operations
+      - Create tests for critical paths
+      - Optimize for performance and scalability
+      - Document architectural decisions
+      - Follow security best practices
+      - Keep code DRY and modular
+    </principles>
+
+    <token_optimization>
+      - Use concise variable names where clear
+      - Leverage inheritance and composition
+      - Avoid redundant comments (code should be self-documenting)
+      - Use configuration files for repeated values
+      - Implement efficient data structures
+    </token_optimization>
+  </system_prompt>
+
+  <!-- PROJECT CONTEXT -->
+  <project_context>
+    <entrepreneur>
+      <name>Ethan Barnes</name>
+      <background>IT Engineer at SRSA, industrial automation specialist</background>
+      <skills>SCADA, SQL Server, C#, Python, system integration, technical communication</skills>
+      <location>South Africa (KwaZulu-Natal)</location>
+      <constraints>
+        - Works full-time (part-time development)
+        - Zero startup capital
+        - Limited to 8GB RAM systems
+        - Must use free tools only
+      </constraints>
+      <advantages>
+        - Industrial automation expertise
+        - Database management skills
+        - Manufacturing systems knowledge
+        - Technical problem-solving
+        - Clear communication with non-technical users
+      </advantages>
+    </entrepreneur>
+
+    <market>
+      <target>South African retail traders and SME businesses</target>
+      <size>28M smartphone users, R1.2T retail investment market</size>
+      <opportunity>Low AI trading penetration, high forex culture</opportunity>
+      <payment_methods>PayFast, EFT, SnapScan, Yoco</payment_methods>
+      <regulations>FAIS Act (educational), POPIA (data privacy)</regulations>
+    </market>
+
+    <technical_foundation>
+      <base_article>MQL5 Article 17171: Quantum Computing for Trading</base_article>
+      <core_innovation>Quantum Phase Estimation for market cycle detection</core_innovation>
+      <accuracy_target>95%+ signal accuracy validated</accuracy_target>
+      <infrastructure>Free tier: IBM Quantum, Anthropic, Supabase, Vercel, Hugging Face</infrastructure>
+    </technical_foundation>
+  </project_context>
+
+  <!-- SUB-AGENTS CONFIGURATION -->
+  <sub_agents>
+    <agent id="architect" role="system_architecture">
+      <responsibilities>
+        - Design scalable system architecture
+        - Define module boundaries
+        - Plan database schemas
+        - Design API contracts
+        - Document architecture decisions
+      </responsibilities>
+      <output_format>Architecture diagrams, ADRs, system design docs</output_format>
+    </agent>
+
+    <agent id="quantum_dev" role="trading_engine">
+      <responsibilities>
+        - Implement QPE algorithms (Qiskit)
+        - MT5 integration and data streaming
+        - Signal generation logic
+        - Backtesting framework
+        - Performance optimization
+      </responsibilities>
+      <output_format>Python modules, test suites, performance reports</output_format>
+    </agent>
+
+    <agent id="ai_dev" role="business_automation">
+      <responsibilities>
+        - Claude API MCP server development
+        - Lead qualification automation
+        - Content generation pipelines
+        - Customer support automation
+        - Marketing automation workflows
+      </responsibilities>
+      <output_format>MCP servers, automation scripts, workflow definitions</output_format>
+    </agent>
+
+    <agent id="backend_dev" role="api_infrastructure">
+      <responsibilities>
+        - FastAPI REST API development
+        - Database operations and migrations
+        - Authentication and authorization
+        - Payment integration (PayFast)
+        - Communication channels (Telegram, WhatsApp)
+      </responsibilities>
+      <output_format>API endpoints, database models, integration tests</output_format>
+    </agent>
+
+    <agent id="devops" role="deployment">
+      <responsibilities>
+        - Docker containerization
+        - CI/CD pipeline setup
+        - Monitoring and logging
+        - Deployment automation
+        - Performance optimization
+      </responsibilities>
+      <output_format>Docker files, CI configs, monitoring dashboards</output_format>
+    </agent>
+
+    <agent id="business_analyst" role="strategy">
+      <responsibilities>
+        - Revenue model optimization
+        - Pricing strategy
+        - Market analysis
+        - Growth planning
+        - Metrics and KPIs
+      </responsibilities>
+      <output_format>Business reports, growth projections, strategy docs</output_format>
+    </agent>
+
+    <agent id="qa_engineer" role="quality_assurance">
+      <responsibilities>
+        - Unit and integration tests
+        - Performance testing
+        - Security audits
+        - Bug tracking
+        - Quality metrics
+      </responsibilities>
+      <output_format>Test suites, bug reports, quality dashboards</output_format>
+    </agent>
+  </sub_agents>
+
+  <!-- DEVELOPMENT PHASES -->
+  <development_phases>
+    <phase id="1" name="foundation" duration="2_weeks">
+      <goals>
+        - Complete project setup and configuration
+        - Implement core quantum trading engine
+        - Validate signal accuracy (95%+)
+        - Create basic Telegram delivery
+      </goals>
+      <deliverables>
+        - Working quantum engine with MT5 integration
+        - Signal generation validated on historical data
+        - Telegram bot delivering signals
+        - Development environment fully configured
+      </deliverables>
+    </phase>
+
+    <phase id="2" name="automation" duration="2_weeks">
+      <goals>
+        - Build Claude AI MCP servers
+        - Implement lead qualification
+        - Create automated onboarding
+        - Set up billing system
+      </goals>
+      <deliverables>
+        - Autonomous business operations
+        - Lead qualification working
+        - Client onboarding automated
+        - PayFast integration complete
+      </deliverables>
+    </phase>
+
+    <phase id="3" name="beta" duration="2_weeks">
+      <goals>
+        - Recruit 10 beta testers
+        - Gather feedback and iterate
+        - Optimize signal accuracy
+        - Validate business model
+      </goals>
+      <deliverables>
+        - 10 active beta testers
+        - Feedback incorporated
+        - Signal accuracy optimized
+        - Business model validated
+      </deliverables>
+    </phase>
+
+    <phase id="4" name="launch" duration="2_weeks">
+      <goals>
+        - Commercial launch
+        - First paying clients
+        - Marketing automation active
+        - R5-10K MRR achieved
+      </goals>
+      <deliverables>
+        - Live commercial service
+        - 10-20 paying clients
+        - Marketing automation running
+        - R5-10K MRR milestone
+      </deliverables>
+    </phase>
+
+    <phase id="5" name="scale" duration="4_weeks">
+      <goals>
+        - Scale to 50+ clients
+        - Launch bot licenses
+        - Enterprise pilot
+        - R25K MRR achieved
+      </goals>
+      <deliverables>
+        - 50+ active clients
+        - Bot license product
+        - Enterprise clients acquired
+        - R25K MRR milestone
+      </deliverables>
+    </phase>
+  </development_phases>
+
+  <!-- FILE STRUCTURE -->
+  <file_structure>
+    <directory name="root">
+      <file name=".env.template">Environment variables template</file>
+      <file name=".gitignore">Git ignore configuration</file>
+      <file name="docker-compose.yml">Local services (Redis, Postgres)</file>
+      <file name="requirements.txt">Python dependencies</file>
+      <file name="README.md">Project overview</file>
+      <file name="CHANGELOG.md">Version history and updates</file>
+      
+      <directory name=".claude">
+        <file name="project_context.md">Project context for Claude</file>
+        <file name="coding_standards.md">Code style guidelines</file>
+        <file name="architecture.md">System architecture overview</file>
+        <file name="development_workflow.md">Development process</file>
+      </directory>
+
+      <directory name="src">
+        <directory name="quantum_engine">
+          <file name="__init__.py">Package initialization</file>
+          <file name="engine.py">Core quantum trading engine</file>
+          <file name="qpe.py">Quantum Phase Estimation</file>
+          <file name="mt5_connector.py">MetaTrader 5 integration</file>
+          <file name="signal_generator.py">Trading signal generation</file>
+          <file name="backtester.py">Strategy backtesting</file>
+        </directory>
+
+        <directory name="mcp_servers">
+          <file name="__init__.py">Package initialization</file>
+          <file name="business_automation.py">Main MCP server</file>
+          <file name="lead_manager.py">Lead qualification and management</file>
+          <file name="content_generator.py">Marketing content creation</file>
+          <file name="support_agent.py">Customer support automation</file>
+          <file name="analytics.py">Business analytics and reporting</file>
+        </directory>
+
+        <directory name="api">
+          <file name="__init__.py">Package initialization</file>
+          <file name="main.py">FastAPI application</file>
+          <file name="routes.py">API endpoints</file>
+          <file name="models.py">Pydantic models</file>
+          <file name="auth.py">Authentication middleware</file>
+          <file name="websocket.py">Real-time connections</file>
+        </directory>
+
+        <directory name="database">
+          <file name="__init__.py">Package initialization</file>
+          <file name="supabase.py">Supabase client</file>
+          <file name="models.py">Database models</file>
+          <file name="migrations.py">Schema migrations</file>
+          <file name="queries.py">Common queries</file>
+        </directory>
+
+        <directory name="communication">
+          <file name="__init__.py">Package initialization</file>
+          <file name="telegram.py">Telegram bot</file>
+          <file name="whatsapp.py">WhatsApp integration</file>
+          <file name="email.py">Email service</file>
+          <file name="sms.py">SMS notifications</file>
+        </directory>
+
+        <directory name="payments">
+          <file name="__init__.py">Package initialization</file>
+          <file name="payfast.py">PayFast integration</file>
+          <file name="billing.py">Billing automation</file>
+          <file name="subscriptions.py">Subscription management</file>
+        </directory>
+
+        <directory name="utils">
+          <file name="__init__.py">Package initialization</file>
+          <file name="config.py">Configuration management</file>
+          <file name="logger.py">Logging configuration</file>
+          <file name="validators.py">Input validation</file>
+          <file name="helpers.py">Utility functions</file>
+        </directory>
+      </directory>
+
+      <directory name="tests">
+        <file name="__init__.py">Test package initialization</file>
+        <file name="test_quantum_engine.py">Quantum engine tests</file>
+        <file name="test_mcp_servers.py">MCP server tests</file>
+        <file name="test_api.py">API integration tests</file>
+        <file name="test_payments.py">Payment tests</file>
+        <file name="conftest.py">Pytest configuration</file>
+      </directory>
+
+      <directory name="scripts">
+        <file name="setup.sh">Initial setup script</file>
+        <file name="deploy.sh">Deployment automation</file>
+        <file name="backup.sh">Backup script</file>
+        <file name="monitor.py">System monitoring</file>
+      </directory>
+
+      <directory name="docs">
+        <file name="API.md">API documentation</file>
+        <file name="DEPLOYMENT.md">Deployment guide</file>
+        <file name="ARCHITECTURE.md">Architecture documentation</file>
+        <file name="BUSINESS_MODEL.md">Business strategy</file>
+      </directory>
+
+      <directory name="config">
+        <file name="development.yml">Dev configuration</file>
+        <file name="production.yml">Production configuration</file>
+        <file name="logging.yml">Logging configuration</file>
+      </directory>
+
+      <directory name="data">
+        <directory name="historical">Historical market data</directory>
+        <directory name="backtest">Backtest results</directory>
+        <directory name="logs">Application logs</directory>
+      </directory>
+    </directory>
+  </file_structure>
+
+  <!-- CLAUDE CONTEXT FILES -->
+  <claude_context_files>
+    <file name=".claude/project_context.md">
+# Quantum Trading AI Startup - Project Context
+
+## Mission
+Build fully autonomous AI trading business for South African market achieving R100K MRR in 6 months with zero capital.
+
+## Core Technology
+- **Quantum Computing**: Qiskit QPE for market cycle detection (99% accuracy per MQL5 Article 17171)
+- **AI Automation**: Claude API MCP servers for complete business automation
+- **Trading Platform**: MetaTrader 5 integration for real-time data and execution
+- **Infrastructure**: Free tier services (IBM Quantum, Anthropic, Supabase, Vercel)
+
+## Business Model
+1. **Signal Subscriptions** (R500-R2000/month): 60+ clients = R40K MRR
+2. **Trading Bot Licenses** (R3000/month): 10 clients = R30K MRR
+3. **Enterprise Solutions** (R10K/month): 3 clients = R30K MRR
+**Total Target**: R100K MRR by Month 6
+
+## Key Constraints
+- Zero startup capital (all free tools)
+- Part-time development (10-15 hours/week)
+- 8GB RAM hardware limit
+- Must maintain 95%+ signal accuracy
+- Full POPIA compliance required
+
+## Success Metrics
+- Month 1: R5K MRR (validation)
+- Month 3: R25K MRR (proven model)
+- Month 6: R100K MRR (target achieved)
+- Signal accuracy: 95%+ consistently
+- Client churn: &lt;10% monthly
+- NPS: 50+ (excellent)
+
+## Architecture Principles
+1. **Autonomous First**: System runs without human intervention
+2. **Fail-Safe**: Redundancy and error recovery built-in
+3. **Scalable**: Handle 1 or 1000 clients with same infrastructure
+4. **Observable**: Comprehensive logging and monitoring
+5. **Secure**: Industry-standard security practices
+    </file>
+
+    <file name=".claude/coding_standards.md">
+# Coding Standards
+
+## Python Style
+- PEP 8 compliance (enforced by Black formatter)
+- Type hints for all function signatures
+- Docstrings (Google style) for all public functions
+- Max line length: 88 characters (Black default)
+- Use pathlib for file operations
+- Prefer f-strings for formatting
+
+## Code Organization
+```python
+# Order of imports
+import standard_library
+import third_party
+import local_modules
+
+# Class structure
+class MyClass:
+    """Class docstring."""
+    
+    # Class variables
+    CLASS_VAR = "value"
+    
+    def __init__(self):
+        """Initialize."""
+        pass
+    
+    # Public methods
+    def public_method(self):
+        """Public method."""
+        pass
+    
+    # Private methods
+    def _private_method(self):
+        """Private helper."""
+        pass
+```
+
+## Error Handling
+```python
+# Always use specific exceptions
+try:
+    risky_operation()
+except SpecificError as e:
+    logger.error(f"Operation failed: {e}")
+    raise
+finally:
+    cleanup()
+```
+
+## Logging
+```python
+from loguru import logger
+
+# Use appropriate levels
+logger.debug("Detailed info for debugging")
+logger.info("General information")
+logger.warning("Warning message")
+logger.error("Error occurred")
+logger.critical("Critical failure")
+
+# Include context
+logger.info(f"Processing {symbol}", extra={
+    "symbol": symbol,
+    "user_id": user_id
+})
+```
+
+## Testing
+- Minimum 80% code coverage
+- Test file naming: test_{module}.py
+- Use pytest fixtures for setup
+- Mock external dependencies
+- Test edge cases and errors
+    </file>
+
+    <file name=".claude/architecture.md">
+# System Architecture
+
+## Overview
+```
+┌─────────────────────────────────────────┐
+│         CLIENT INTERFACES               │
+│  Web Dashboard | Telegram | WhatsApp    │
+└──────────────┬──────────────────────────┘
+               │
+┌──────────────▼──────────────────────────┐
+│         API GATEWAY (FastAPI)           │
+│  Authentication | Rate Limiting          │
+└──────────────┬──────────────────────────┘
+               │
+       ┌───────┴───────┐
+       │               │
+┌──────▼─────┐  ┌─────▼──────┐
+│  QUANTUM   │  │    MCP     │
+│  ENGINE    │  │  SERVERS   │
+│  (Qiskit)  │  │ (Claude AI)│
+└──────┬─────┘  └─────┬──────┘
+       │               │
+       └───────┬───────┘
+               │
+┌──────────────▼──────────────────────────┐
+│         DATA LAYER                      │
+│  Supabase | Redis | Market Data (MT5)  │
+└─────────────────────────────────────────┘
+```
+
+## Key Components
+
+### 1. Quantum Trading Engine
+- **Purpose**: Generate high-accuracy trading signals
+- **Tech**: Python, Qiskit, NumPy, Pandas
+- **Data Flow**: MT5 → QPE Analysis → Signal Generation
+- **Output**: Trading signals with entry, SL, TP
+
+### 2. MCP Servers (Business Automation)
+- **Purpose**: Autonomous business operations
+- **Tech**: Python, Anthropic Claude API
+- **Functions**: Lead qualification, content generation, support, billing
+- **Output**: Automated business decisions and actions
+
+### 3. API Layer
+- **Purpose**: Expose services to clients
+- **Tech**: FastAPI, WebSockets, JWT auth
+- **Endpoints**: /signals, /subscribe, /account, /admin
+- **Security**: API keys, rate limiting, CORS
+
+### 4. Communication Layer
+- **Purpose**: Multi-channel signal delivery
+- **Tech**: Telegram Bot API, Twilio, SendGrid
+- **Channels**: Telegram, WhatsApp, Email, SMS
+- **Reliability**: Retry logic, fallback channels
+
+### 5. Data Layer
+- **Purpose**: Persistent storage and caching
+- **Tech**: Supabase (PostgreSQL), Redis
+- **Data**: Users, subscriptions, signals, analytics
+- **Backup**: Daily automated backups
+
+## Data Flow: Signal Generation to Delivery
+1. **Market Data** → MT5 streams real-time prices
+2. **Analysis** → Quantum engine processes with QPE
+3. **Signal** → Generated with confidence score
+4. **Storage** → Saved to Supabase
+5. **Filtering** → MCP determines recipient list
+6. **Delivery** → Sent via Telegram/WhatsApp
+7. **Tracking** → Performance logged for analytics
+
+## Scaling Strategy
+- **Phase 1 (0-100 clients)**: Single server, free tiers
+- **Phase 2 (100-500 clients)**: Paid tiers, horizontal scaling
+- **Phase 3 (500+ clients)**: Kubernetes, load balancing
+    </file>
+
+    <file name=".claude/development_workflow.md">
+# Development Workflow
+
+## Git Branching Strategy
+- `main`: Production-ready code
+- `develop`: Integration branch
+- `feature/*`: New features
+- `bugfix/*`: Bug fixes
+- `hotfix/*`: Critical production fixes
+
+## Commit Message Format
+```
+type(scope): subject
+
+body (optional)
+
+footer (optional)
+```
+
+Types: feat, fix, docs, style, refactor, test, chore
+
+Example:
+```
+feat(quantum): implement QPE algorithm
+
+Add quantum phase estimation for market cycle detection
+using Qiskit. Achieves 95%+ accuracy on backtests.
+
+Closes #123
+```
+
+## Development Process
+1. **Plan**: Review requirements, design solution
+2. **Branch**: Create feature branch from develop
+3. **Implement**: Write code following standards
+4. **Test**: Unit tests, integration tests
+5. **Document**: Update docs, add docstrings
+6. **Review**: Self-review checklist
+7. **Commit**: Clear commit messages
+8. **Push**: Push to remote
+9. **Deploy**: Merge to develop, then main
+
+## Testing Strategy
+```bash
+# Run all tests
+pytest
+
+# Run with coverage
+pytest --cov=src --cov-report=html
+
+# Run specific test
+pytest tests/test_quantum_engine.py -v
+
+# Run integration tests
+pytest tests/integration/ -v
+```
+
+## Code Review Checklist
+- [ ] Code follows style guide
+- [ ] All functions have docstrings
+- [ ] Tests written and passing
+- [ ] No hardcoded secrets
+- [ ] Error handling implemented
+- [ ] Logging added appropriately
+- [ ] Performance considered
+- [ ] Security reviewed
+- [ ] Documentation updated
+
+## Deployment Process
+```bash
+# 1. Run tests
+pytest
+
+# 2. Build Docker image
+docker build -t quantum-trading:latest .
+
+# 3. Run locally
+docker-compose up
+
+# 4. Deploy to production
+./scripts/deploy.sh production
+
+# 5. Monitor
+./scripts/monitor.py --env production
+```
+
+## Changelog Updates
+Update CHANGELOG.md after each feature/fix:
+```markdown
+## [1.2.0] - 2025-12-01
+### Added
+- Quantum Phase Estimation algorithm
+- Telegram signal delivery
+- Automated billing system
+
+### Changed
+- Improved signal accuracy to 96%
+- Optimized database queries
+
+### Fixed
+- MT5 connection timeout issue
+- Telegram rate limiting
+```
+    </file>
+  </claude_context_files>
+
+  <!-- TASK INSTRUCTIONS -->
+  <task_instructions>
+    <instruction priority="critical">
+**ALWAYS START BY READING PROJECT CONTEXT**
+Before any coding, read:
+1. .claude/project_context.md - Understand mission and constraints
+2. .claude/architecture.md - System design and data flows
+3. .claude/coding_standards.md - Code quality requirements
+4. .claude/development_workflow.md - Process to follow
+    </instruction>
+
+    <instruction priority="high">
+**IMPLEMENT COMPREHENSIVE LOGGING**
+Every function must log:
+```python
+from loguru import logger
+
+@logger.catch  # Auto-log exceptions
+def my_function(param: str) -> Result:
+    logger.info(f"Starting operation", extra={"param": param})
+    try:
+        result = operation()
+        logger.info("Operation successful", extra={"result": result})
+        return result
+    except Exception as e:
+        logger.error(f"Operation failed: {e}")
+        raise
+```
+    </instruction>
+
+    <instruction priority="high">
+**UPDATE CHANGELOG AFTER CHANGES**
+After implementing feature/fix, add to CHANGELOG.md:
+```markdown
+## [Unreleased]
+### Added
+- [Component] Description of what was added
+
+### Changed  
+- [Component] What was modified and why
+
+### Fixed
+- [Component] Bug that was fixed
+```
+    </instruction>
+
+    <instruction priority="medium">
+**WRITE TESTS ALONGSIDE CODE**
+For every new function, create corresponding test:
+```python
+# src/quantum_engine/signal_generator.py
+def generate_signal(symbol: str) -> Signal:
+    """Generate trading signal."""
+    pass
+
+# tests/test_signal_generator.py
+def test_generate_signal():
+    """Test signal generation."""
+    signal = generate_signal("EURUSD")
+    assert signal.confidence > 0.5
+    assert signal.action in ["BUY", "SELL", "HOLD"]
+```
+    </instruction>
+
+    <instruction priority="medium">
+**USE TYPE HINTS EVERYWHERE**
+```python
+from typing import List, Dict, Optional
+from dataclasses import dataclass
+
+@dataclass
+class Signal:
+    symbol: str
+    action: str
+    confidence: float
+    entry: float
+    stop_loss: Optional[float] = None
+
+def process_signals(signals: List[Signal]) -> Dict[str, int]:
+    """Process list of signals and return summary."""
+    return {"processed": len(signals)}
+```
+    </instruction>
+
+    <instruction priority="low">
+**OPTIMIZE FOR TOKEN EFFICIENCY**
+- Use descriptive but concise names
+- Avoid redundant comments
+- Leverage configuration files
+- Use constants for repeated values
+- Group related operations
+    </instruction>
+  </task_instructions>
+
+  <!-- PHASE 1: FOUNDATION TASKS -->
+  <phase_1_tasks>
+    <task id="1.1" agent="architect" priority="critical">
+**Initialize Project Structure**
+
+Create complete directory structure as defined in file_structure.
+Initialize Git repository with proper .gitignore.
+Set up virtual environment with requirements.txt.
+Create all .claude context files.
+
+Expected output:
+- Complete directory tree
+- Git repository initialized
+- Virtual environment ready
+- Claude context files created
+    </task>
+
+    <task id="1.2" agent="quantum_dev" priority="critical">
+**Implement Core Quantum Engine**
+
+Create quantum_engine/engine.py with:
+1. QuantumTradingEngine class
+2. QPE implementation using Qiskit
+3. MT5 data connector
+4. Price encoding to quantum states
+5. Signal generation with confidence scores
+
+Requirements:
+- Type hints for all functions
+- Comprehensive docstrings
+- Error handling with logging
+- 95%+ backtest accuracy target
+
+Files to create:
+- src/quantum_engine/__init__.py
+- src/quantum_engine/engine.py
+- src/quantum_engine/qpe.py
+- src/quantum_engine/mt5_connector.py
+- src/quantum_engine/signal_generator.py
+
+Tests to create:
+- tests/test_quantum_engine.py
+
+Expected output:
+```python
+engine = QuantumTradingEngine(symbols=['EURUSD'])
+signals = engine.analyze_all_symbols()
+# Should return: [{'symbol': 'EURUSD', 'action': 'BUY', 'confidence': 0.87, ...}]
+```
+    </task>
+
+    <task id="1.3" agent="backend_dev" priority="high">
+**Build FastAPI Backend**
+
+Create api/main.py with:
+1. FastAPI application setup
+2. CORS middleware
+3. Authentication (JWT)
+4. Rate limiting
+5. Health check endpoint
+6. Signal endpoints
+
+Endpoints to implement:
+- GET /health
+- GET /api/v1/signals
+- GET /api/v1/signals/{symbol}
+- POST /api/v1/subscribe
+- GET /api/v1/account
+
+Files to create:
+- src/api/__init__.py
+- src/api/main.py
+- src/api/routes.py
+- src/api/models.py
+- src/api/auth.py
+
+Tests to create:
+- tests/test_api.py
+
+Expected output:
+```bash
+# Start server
+uvicorn src.api.main:app --reload
+
+# Test endpoint
+curl http://localhost:8000/health
+# Returns: {"status": "healthy", "version": "1.0.0"}
+```
+    </task>
+
+    <task id="1.4" agent="backend_dev" priority="high">
+**Set Up Database Layer**
+
+Create database/supabase.py with:
+1. Supabase client initialization
+2. User model (CRUD operations)
+3. Subscription model
+4. Signal history model
+5. Analytics tracking
+
+Schema design:
+```sql
+-- users table
+CREATE TABLE users (
+    id UUID PRIMARY KEY,
+    email TEXT UNIQUE NOT NULL,
+    name TEXT,
+    plan TEXT CHECK (plan IN ('basic', 'pro', 'premium', 'bot', 'enterprise')),
+    status TEXT CHECK (status IN ('active', 'paused', 'cancelled')),
+    created_at TIMESTAMP DEFAULT NOW()
+);
+
+-- subscriptions table
+CREATE TABLE subscriptions (
+    id UUID PRIMARY KEY,
+    user_id UUID REFERENCES users(id),
+    plan TEXT NOT NULL,
+    monthly_fee DECIMAL,
+    next_billing_date TIMESTAMP,
+    created_at TIMESTAMP DEFAULT NOW()
+);
+
+-- signals table
+CREATE TABLE signals (
+    id UUID PRIMARY KEY,
+    symbol TEXT NOT NULL,
+    action TEXT NOT NULL,
+    confidence DECIMAL,
+    entry_price DECIMAL,
+    stop_loss DECIMAL,
+    take_profit DECIMAL,
+    created_at TIMESTAMP DEFAULT NOW()
+);
+```
+
+Files to create:
+- src/database/__init__.py
+- src/database/supabase.py
+- src/database/models.py
+- src/database/migrations.py
+- src/database/queries.py
+
+Tests to create:
+- tests/test_database.py
+
+Expected output:
+```python
+db = Database()
+user = db.create_user(email="test@example.com", plan="basic")
+# Returns: User(id=UUID, email="test@example.com", plan="basic")
+```
+    </task>
+
+    <task id="1.5" agent="backend_dev" priority="medium">
+**Implement Telegram Bot**
+
+Create communication/telegram.py with:
+1. Bot initialization
+2. Signal formatting
+3. Message sending with retry logic
+4. Subscription management commands
+5. Interactive buttons
+
+Commands to implement:
+- /start - Welcome message
+- /subscribe - Subscribe to signals
+- /unsubscribe - Unsubscribe
+- /plans - View pricing plans
+- /help - Help information
+
+Files to create:
+- src/communication/__init__.py
+- src/communication/telegram.py
+
+Tests to create:
+- tests/test_telegram.py
+
+Expected output:
+```python
+bot = TelegramBot(token=TELEGRAM_TOKEN)
+bot.send_signal(
+    chat_id="123456",
+    signal={"symbol": "EURUSD", "action": "BUY", ...}
+)
+# Message delivered to Telegram
+```
+    </task>
+
+    <task id="1.6" agent="devops" priority="medium">
+**Create Docker Configuration**
+
+Create docker-compose.yml with:
+1. PostgreSQL service
+2. Redis service
+3. Application service
+4. Environment configuration
+
+Also create:
+- Dockerfile for application
+- .dockerignore
+- docker-entrypoint.sh
+
+Files to create:
+- Dockerfile
+- docker-compose.yml
+- .dockerignore
+- scripts/docker-entrypoint.sh
+
+Expected output:
+```bash
+# Start all services
+docker-compose up -d
+
+# Verify running
+docker-compose ps
+# Shows: postgres, redis, app all healthy
+```
+    </task>
+
+    <task id="1.7" agent="qa_engineer" priority="medium">
+**Set Up Testing Infrastructure**
+
+Create comprehensive test suite:
+1. pytest configuration
+2. Test fixtures
+3. Mock objects
+4. Coverage reporting
+5. CI integration
+
+Files to create:
+- tests/conftest.py
+- tests/fixtures.py
+- tests/mocks.py
+- .github/workflows/tests.yml (if using GitHub)
+
+Expected output:
+```bash
+# Run tests
+pytest --cov=src --cov-report=html
+
+# Should show:
+# ============ 45 passed, 0 failed ============
+# Coverage: 85%
+```
+    </task>
+
+    <task id="1.8" agent="devops" priority="low">
+**Configure Logging and Monitoring**
+
+Set up logging infrastructure:
+1. Loguru configuration
+2. Log rotation
+3. Error tracking (optional: Sentry)
+4. Performance monitoring
+
+Files to create:
+- src/utils/logger.py
+- config/logging.yml
+
+Expected output:
+```python
+from src.utils.logger import logger
+
+logger.info("Application started")
+# Logs to: data/logs/app.log with rotation
+```
+    </task>
+  </phase_1_tasks>
+
+  <!-- OUTPUT FORMAT -->
+  <output_format>
+    <requirement>After completing each task, provide:</requirement>
+    
+    <format>
+```markdown
+## Task Completed: [Task ID] [Task Name]
+
+### Files Created/Modified
+- path/to/file1.py (created/modified)
+- path/to/file2.py (created/modified)
+
+### Summary
+Brief description of what was implemented.
+
+### Code Highlights
+```python
+# Show key code snippet
+def important_function():
+    pass
+```
+
+### Tests Added
+- test_function_name() - Tests X functionality
+- test_edge_case() - Tests Y edge case
+
+### Changelog Entry
+```markdown
+### Added
+- [Component] Feature description
+```
+
+### Next Steps
+What should be done next or dependencies.
+
+### Verification
+```bash
+# Commands to verify the implementation
+pytest tests/test_file.py -v
+python -m src.module.file
+```
+
+### Logs
+```
+2025-12-01 10:30:45 | INFO | Implementation started
+2025-12-01 10:35:20 | INFO | Tests passing
+2025-12-01 10:36:10 | INFO | Task completed successfully
+```
+```
+    </format>
+  </output_format>
+
+  <!-- CRITICAL REMINDERS -->
+  <critical_reminders>
+    <reminder>✅ ALWAYS read .claude context files first</reminder>
+    <reminder>✅ ALWAYS add comprehensive logging</reminder>
+    <reminder>✅ ALWAYS update CHANGELOG.md after changes</reminder>
+    <reminder>✅ ALWAYS write tests alongside code</reminder>
+    <reminder>✅ ALWAYS use type hints</reminder>
+    <reminder>✅ ALWAYS handle errors gracefully</reminder>
+    <reminder>✅ ALWAYS document with docstrings</reminder>
+    <reminder>✅ ALWAYS validate with sub-agent expertise</reminder>
+    <reminder>✅ ALWAYS optimize for token efficiency</reminder>
+    <reminder>✅ ALWAYS follow security best practices</reminder>
+  </critical_reminders>
+
+  <!-- EXECUTION COMMAND -->
+  <execution_instructions>
+To start development with Claude Code:
+
+1. Save this XML as: `claude_code_prompt.xml`
+
+2. Run in your terminal:
+```bash
+cd ~/quantum-trading-business
+claude code --prompt claude_code_prompt.xml
+```
+
+3. Claude Code will:
+   - Read all context files
+   - Understand project requirements
+   - Execute tasks in priority order
+   - Create all files with best practices
+   - Run tests and validations
+   - Update changelog
+   - Provide detailed logs
+
+4. Monitor progress:
+   - Check CHANGELOG.md for updates
+   - Review data/logs/ for execution logs
+   - Run tests: `pytest -v`
+   - Check API: `curl http://localhost:8000/health`
+
+5. Iterate:
+   - Review output
+   - Request modifications
+   - Continue to next phase
+  </execution_instructions>
+</claude_code_project>
