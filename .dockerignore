@@ -1,0 +1,44 @@
+# Git
+.git
+.gitignore
+
+# Python
+__pycache__
+*.py[cod]
+*$py.class
+*.so
+.Python
+venv/
+env/
+*.egg-info/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+
+# Environment
+.env
+.env.local
+
+# Data
+data/historical/*.csv
+data/backtest/*.json
+data/logs/*.log
+
+# Documentation
+docs/_build/
+*.md
+
+# Tests
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Docker
+docker-compose.override.yml
+
+# Temporary
+*.tmp
+*.bak
+tmp/
