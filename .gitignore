@@ -128,3 +128,7 @@ qiskit.log
 # Local configuration
 config/local.yml
 config/*.local.yml
+
+
+.github/instructions/kluster-code-verify.instructions.md
+.kluster
