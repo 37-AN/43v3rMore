@@ -1,0 +1,541 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>43v3rMore System Architecture - Autonomous AI Trading</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+            min-height: 100vh;
+            padding: 20px;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1600px;
+            margin: 0 auto;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+            color: white;
+        }
+
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            text-shadow: 0 0 20px rgba(0, 255, 255, 0.5);
+        }
+
+        .header p {
+            font-size: 1.2em;
+            color: #00ffff;
+        }
+
+        .system-diagram {
+            position: relative;
+            min-height: 900px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 20px;
+            padding: 40px;
+            backdrop-filter: blur(10px);
+        }
+
+        .node {
+            position: absolute;
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            animation: pulse 3s ease-in-out infinite;
+            cursor: pointer;
+        }
+
+        .node:hover {
+            transform: scale(1.05);
+            box-shadow: 0 12px 48px rgba(0, 0, 0, 0.5);
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.02); }
+        }
+
+        .node h3 {
+            margin-bottom: 10px;
+            font-size: 1.3em;
+        }
+
+        .node p {
+            font-size: 0.9em;
+            line-height: 1.4;
+        }
+
+        .node .tech-stack {
+            margin-top: 10px;
+            font-size: 0.8em;
+            opacity: 0.8;
+            font-style: italic;
+        }
+
+        /* Color schemes for different nodes */
+        .quantum-node {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            top: 50px;
+            left: 50px;
+            width: 280px;
+        }
+
+        .market-data-node {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            color: white;
+            top: 50px;
+            right: 50px;
+            width: 280px;
+        }
+
+        .backend-node {
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            color: white;
+            top: 300px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 300px;
+        }
+
+        .database-node {
+            background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
+            color: white;
+            top: 550px;
+            left: 100px;
+            width: 260px;
+        }
+
+        .automation-node {
+            background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
+            color: white;
+            top: 550px;
+            right: 100px;
+            width: 280px;
+        }
+
+        .payment-node {
+            background: linear-gradient(135deg, #30cfd0 0%, #330867 100%);
+            color: white;
+            top: 750px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 260px;
+        }
+
+        .delivery-node {
+            background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
+            color: #333;
+            bottom: 50px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 600px;
+            text-align: center;
+        }
+
+        /* Animated arrows */
+        .arrow {
+            position: absolute;
+            pointer-events: none;
+        }
+
+        .arrow-line {
+            stroke: #00ffff;
+            stroke-width: 3;
+            fill: none;
+            stroke-dasharray: 10;
+            animation: dash 2s linear infinite;
+        }
+
+        @keyframes dash {
+            to {
+                stroke-dashoffset: -20;
+            }
+        }
+
+        .arrow-head {
+            fill: #00ffff;
+            animation: arrowPulse 1.5s ease-in-out infinite;
+        }
+
+        @keyframes arrowPulse {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.6; transform: scale(1.2); }
+        }
+
+        /* Data flow particles */
+        .particle {
+            position: absolute;
+            width: 8px;
+            height: 8px;
+            background: #00ffff;
+            border-radius: 50%;
+            box-shadow: 0 0 10px #00ffff;
+            animation: flow 4s linear infinite;
+            opacity: 0;
+        }
+
+        @keyframes flow {
+            0% { opacity: 0; }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { opacity: 0; }
+        }
+
+        /* Status indicators */
+        .status-indicator {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: #00ff00;
+            box-shadow: 0 0 10px #00ff00;
+            animation: blink 2s ease-in-out infinite;
+        }
+
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.3; }
+        }
+
+        /* Legend */
+        .legend {
+            position: absolute;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(0, 0, 0, 0.7);
+            padding: 15px 30px;
+            border-radius: 10px;
+            color: white;
+            display: flex;
+            gap: 30px;
+            align-items: center;
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .legend-line {
+            width: 30px;
+            height: 3px;
+            background: #00ffff;
+        }
+
+        /* Info panel */
+        .info-panel {
+            position: fixed;
+            top: 50%;
+            right: -400px;
+            transform: translateY(-50%);
+            width: 350px;
+            background: rgba(0, 0, 0, 0.9);
+            border-radius: 15px 0 0 15px;
+            padding: 30px;
+            color: white;
+            transition: right 0.5s ease;
+            z-index: 1000;
+        }
+
+        .info-panel.active {
+            right: 0;
+        }
+
+        .info-panel h3 {
+            color: #00ffff;
+            margin-bottom: 15px;
+        }
+
+        .metric {
+            margin: 15px 0;
+            padding: 10px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+        }
+
+        .metric-label {
+            font-size: 0.9em;
+            color: #aaa;
+        }
+
+        .metric-value {
+            font-size: 1.4em;
+            font-weight: bold;
+            color: #00ff00;
+        }
+
+        .toggle-info {
+            position: fixed;
+            right: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: #00ffff;
+            color: #000;
+            padding: 15px 10px;
+            border-radius: 10px 0 0 10px;
+            cursor: pointer;
+            font-weight: bold;
+            z-index: 999;
+            writing-mode: vertical-rl;
+            text-orientation: mixed;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🚀 43v3rMore System Architecture</h1>
+            <p>Autonomous AI Trading System - Real-time Process Flow</p>
+        </div>
+
+        <div class="system-diagram" id="diagram">
+            <!-- Legend -->
+            <div class="legend">
+                <div class="legend-item">
+                    <div class="legend-line"></div>
+                    <span>Data Flow</span>
+                </div>
+                <div class="legend-item">
+                    <div style="width: 12px; height: 12px; background: #00ff00; border-radius: 50%;"></div>
+                    <span>Active System</span>
+                </div>
+            </div>
+
+            <!-- Quantum Engine Node -->
+            <div class="node quantum-node" data-node="quantum">
+                <div class="status-indicator"></div>
+                <h3>⚛️ Quantum Engine</h3>
+                <p>Quantum Phase Estimation algorithms analyze market patterns with 95%+ accuracy</p>
+                <div class="tech-stack">Qiskit | QPE | Quantum Circuits</div>
+            </div>
+
+            <!-- Market Data Node -->
+            <div class="node market-data-node" data-node="market">
+                <div class="status-indicator"></div>
+                <h3>📊 Market Data Feed</h3>
+                <p>Real-time market data from MetaTrader 5 across multiple instruments</p>
+                <div class="tech-stack">MT5 | OHLCV | Real-time APIs</div>
+            </div>
+
+            <!-- Backend Processing Node -->
+            <div class="node backend-node" data-node="backend">
+                <div class="status-indicator"></div>
+                <h3>⚙️ Backend Engine</h3>
+                <p>FastAPI processes signals, manages requests, coordinates all services</p>
+                <div class="tech-stack">FastAPI | Python | REST APIs</div>
+            </div>
+
+            <!-- Database Node -->
+            <div class="node database-node" data-node="database">
+                <div class="status-indicator"></div>
+                <h3>💾 Database Layer</h3>
+                <p>Supabase stores users, signals, transactions, and analytics</p>
+                <div class="tech-stack">Supabase | PostgreSQL | Real-time</div>
+            </div>
+
+            <!-- Automation Node -->
+            <div class="node automation-node" data-node="automation">
+                <div class="status-indicator"></div>
+                <h3>🤖 Business Automation</h3>
+                <p>Claude AI MCP automates lead gen, onboarding, support, and billing</p>
+                <div class="tech-stack">Claude MCP | Automation | AI Agents</div>
+            </div>
+
+            <!-- Payment Node -->
+            <div class="node payment-node" data-node="payment">
+                <div class="status-indicator"></div>
+                <h3>💳 Payment Processing</h3>
+                <p>PayFast handles ZAR subscriptions and transactions</p>
+                <div class="tech-stack">PayFast | Recurring | ZAR</div>
+            </div>
+
+            <!-- Signal Delivery Node -->
+            <div class="node delivery-node" data-node="delivery">
+                <div class="status-indicator"></div>
+                <h3>📱 Multi-Channel Signal Delivery</h3>
+                <p>Trading signals delivered through Telegram • WhatsApp • Email • SMS</p>
+                <div class="tech-stack">Multi-channel | Real-time | Automated</div>
+            </div>
+
+            <!-- SVG for arrows -->
+            <svg style="position: absolute; width: 100%; height: 100%; top: 0; left: 0; pointer-events: none;">
+                <!-- Quantum to Backend -->
+                <path id="arrow1" class="arrow-line" d="M 180 150 Q 250 200 410 280" />
+                <polygon class="arrow-head" points="410,280 400,275 400,285" />
+                
+                <!-- Market to Backend -->
+                <path id="arrow2" class="arrow-line" d="M 1100 150 Q 1000 200 820 280" />
+                <polygon class="arrow-head" points="820,280 830,275 830,285" />
+                
+                <!-- Backend to Database -->
+                <path id="arrow3" class="arrow-line" d="M 500 380 Q 400 450 280 580" />
+                <polygon class="arrow-head" points="280,580 290,575 285,585" />
+                
+                <!-- Backend to Automation -->
+                <path id="arrow4" class="arrow-line" d="M 700 380 Q 850 450 950 580" />
+                <polygon class="arrow-head" points="950,580 940,575 945,585" />
+                
+                <!-- Database to Payment -->
+                <path id="arrow5" class="arrow-line" d="M 330 630 Q 450 700 550 750" />
+                <polygon class="arrow-head" points="550,750 540,745 545,755" />
+                
+                <!-- Automation to Payment -->
+                <path id="arrow6" class="arrow-line" d="M 950 630 Q 800 700 680 750" />
+                <polygon class="arrow-head" points="680,750 690,745 685,755" />
+                
+                <!-- Payment to Delivery -->
+                <path id="arrow7" class="arrow-line" d="M 615 820 L 615 870" />
+                <polygon class="arrow-head" points="615,870 610,860 620,860" />
+            </svg>
+        </div>
+    </div>
+
+    <!-- Info Panel -->
+    <div class="toggle-info" onclick="toggleInfo()">SYSTEM METRICS</div>
+    <div class="info-panel" id="infoPanel">
+        <h3>📊 Live System Metrics</h3>
+        
+        <div class="metric">
+            <div class="metric-label">Target Accuracy</div>
+            <div class="metric-value">95%+</div>
+        </div>
+        
+        <div class="metric">
+            <div class="metric-label">Revenue Goal</div>
+            <div class="metric-value">R100K/mo</div>
+        </div>
+        
+        <div class="metric">
+            <div class="metric-label">Target Users</div>
+            <div class="metric-value">200+</div>
+        </div>
+        
+        <div class="metric">
+            <div class="metric-label">ARPU</div>
+            <div class="metric-value">R500+</div>
+        </div>
+        
+        <div class="metric">
+            <div class="metric-label">Contribution Margin</div>
+            <div class="metric-value">R406/user</div>
+        </div>
+        
+        <div class="metric">
+            <div class="metric-label">Timeline</div>
+            <div class="metric-value">6 Months</div>
+        </div>
+        
+        <div class="metric">
+            <div class="metric-label">Startup Capital</div>
+            <div class="metric-value">R0</div>
+        </div>
+    </div>
+
+    <script>
+        // Create flowing particles along paths
+        function createParticles() {
+            const paths = document.querySelectorAll('.arrow-line');
+            
+            paths.forEach((path, index) => {
+                setInterval(() => {
+                    const particle = document.createElement('div');
+                    particle.className = 'particle';
+                    document.getElementById('diagram').appendChild(particle);
+                    
+                    const pathLength = path.getTotalLength();
+                    let distance = 0;
+                    
+                    const animate = () => {
+                        if (distance <= pathLength) {
+                            const point = path.getPointAtLength(distance);
+                            particle.style.left = point.x + 'px';
+                            particle.style.top = point.y + 'px';
+                            distance += 3;
+                            requestAnimationFrame(animate);
+                        } else {
+                            particle.remove();
+                        }
+                    };
+                    
+                    animate();
+                }, 2000 + index * 300);
+            });
+        }
+
+        // Node click interaction
+        document.querySelectorAll('.node').forEach(node => {
+            node.addEventListener('click', function() {
+                const nodeName = this.getAttribute('data-node');
+                showNodeDetails(nodeName);
+            });
+        });
+
+        function showNodeDetails(nodeName) {
+            const details = {
+                quantum: 'Quantum computing engine using Qiskit implements Quantum Phase Estimation for market analysis',
+                market: 'MetaTrader 5 integration provides real-time OHLCV data across multiple trading instruments',
+                backend: 'FastAPI backend orchestrates all services, processes signals, and manages API endpoints',
+                database: 'Supabase PostgreSQL database stores all user data, signals, and transaction records',
+                automation: 'Claude AI MCP server automates lead generation, onboarding, billing, and support',
+                payment: 'PayFast handles South African ZAR payments with recurring subscription support',
+                delivery: 'Multi-channel delivery ensures signals reach customers via their preferred platform'
+            };
+            
+            alert(details[nodeName] || 'System component');
+        }
+
+        // Toggle info panel
+        function toggleInfo() {
+            document.getElementById('infoPanel').classList.toggle('active');
+        }
+
+        // Initialize particles
+        setTimeout(createParticles, 1000);
+
+        // Add random data pulses
+        setInterval(() => {
+            const nodes = document.querySelectorAll('.node');
+            const randomNode = nodes[Math.floor(Math.random() * nodes.length)];
+            randomNode.style.boxShadow = '0 0 30px rgba(0, 255, 255, 0.8)';
+            setTimeout(() => {
+                randomNode.style.boxShadow = '0 8px 32px rgba(0, 0, 0, 0.3)';
+            }, 500);
+        }, 3000);
+
+        // Update metrics animation
+        function animateMetrics() {
+            const metrics = document.querySelectorAll('.metric-value');
+            metrics.forEach(metric => {
+                setInterval(() => {
+                    metric.style.color = '#00ff00';
+                    setTimeout(() => {
+                        metric.style.color = '#00ffff';
+                    }, 500);
+                }, 5000);
+            });
+        }
+
+        animateMetrics();
+    </script>
+</body>
+</html>
