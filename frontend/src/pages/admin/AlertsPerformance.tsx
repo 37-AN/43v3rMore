@@ -266,7 +266,7 @@ export const AlertsPerformance: React.FC = () => {
                   <span className="font-medium">12</span>
                 </div>
                 <div className="flex items-center justify-between">
-                  <span className="text-sm">Slow Queries (&gt;1s)</span>
+                  <span className="text-sm">Slow Queries ({'>'}1s)</span>
                   <span className="font-medium text-yellow-600">3</span>
                 </div>
                 <div className="flex items-center justify-between">
