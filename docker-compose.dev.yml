@@ -4,7 +4,7 @@ services:
   # PostgreSQL database
   postgres:
     image: postgres:15-alpine
-    container_name: quantum-postgres
+    container_name: quantum-postgres-dev
     environment:
       POSTGRES_DB: quantum_trading
       POSTGRES_USER: quantum_user
@@ -12,7 +12,7 @@ services:
     ports:
       - "5432:5432"
     volumes:
-      - postgres_data:/var/lib/postgresql/data
+      - postgres_data_dev:/var/lib/postgresql/data
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U quantum_user"]
       interval: 10s
@@ -22,23 +22,23 @@ services:
   # Redis cache
   redis:
     image: redis:7-alpine
-    container_name: quantum-redis
+    container_name: quantum-redis-dev
     ports:
       - "6379:6379"
     volumes:
-      - redis_data:/data
+      - redis_data_dev:/data
     healthcheck:
       test: ["CMD", "redis-cli", "ping"]
       interval: 10s
       timeout: 5s
       retries: 5
 
-  # Main application
+  # Backend application (development mode)
   app:
     build:
       context: .
       dockerfile: Dockerfile
-    container_name: quantum-app
+    container_name: quantum-app-dev
     env_file:
       - .env
     ports:
@@ -52,19 +52,25 @@ services:
       redis:
         condition: service_healthy
     restart: unless-stopped
+    command: uvicorn src.api.main:app --host 0.0.0.0 --port 8000 --reload
 
-  # Frontend application
+  # Frontend application (development mode with hot reload)
   frontend:
-    build:
-      context: ./frontend
-      dockerfile: Dockerfile
-    container_name: quantum-frontend
+    image: node:18-alpine
+    container_name: quantum-frontend-dev
+    working_dir: /app
     ports:
-      - "3000:80"
+      - "3000:3000"
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+    environment:
+      - VITE_API_URL=http://localhost:8000/api/v1
     depends_on:
       - app
+    command: sh -c "npm install && npm run dev -- --host 0.0.0.0"
     restart: unless-stopped
 
 volumes:
-  postgres_data:
-  redis_data:
+  postgres_data_dev:
+  redis_data_dev:

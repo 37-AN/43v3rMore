@@ -1,6 +1,6 @@
 # Quantum Trading AI
 
-Autonomous AI trading system for South African market using quantum computing and advanced machine learning.
+Full-stack autonomous AI trading system for South African market using quantum computing and advanced machine learning.
 
 ## Mission
 
@@ -9,60 +9,79 @@ Build a fully autonomous trading signal service achieving R100K MRR in 6 months 
 ## Features
 
 - **Quantum Phase Estimation**: 95%+ signal accuracy using Qiskit
+- **Modern Web UI**: Production-ready React TypeScript frontend with dark mode
 - **Multi-Channel Delivery**: Telegram, WhatsApp, Email, SMS
 - **Automated Billing**: PayFast integration for South African payments
-- **Real-time Analysis**: MT5 integration for live market data
-- **Scalable Architecture**: FastAPI + Supabase + Redis
+- **Real-time Dashboard**: Live trading statistics and signal monitoring
+- **MT5 Integration**: Real-time market data and analysis
+- **Scalable Architecture**: FastAPI + React + PostgreSQL + Redis
 
 ## Tech Stack
 
+### Backend
 - **Quantum Computing**: Qiskit, NumPy
 - **Trading**: MetaTrader 5, Pandas
-- **Backend**: FastAPI, Python 3.11+
+- **API**: FastAPI, Python 3.11+
 - **Database**: Supabase (PostgreSQL)
 - **Cache**: Redis
 - **Communication**: Telegram Bot API, Twilio, SendGrid
 - **Payments**: PayFast
-- **AI**: Anthropic Claude (MCP servers)
-- **DevOps**: Docker, Docker Compose
 
-## Quick Start
+### Frontend
+- **Framework**: React 18 + TypeScript
+- **Build**: Vite
+- **Styling**: Tailwind CSS
+- **State**: Zustand
+- **Routing**: React Router v6
 
-### Prerequisites
+### DevOps
+- **Containerization**: Docker, Docker Compose
+- **Reverse Proxy**: nginx
+- **CI/CD**: GitHub Actions (planned)
 
-- Python 3.11+
-- Docker & Docker Compose
-- MetaTrader 5 account
-- Supabase account
-- Telegram Bot Token
+## 🚀 Quick Start
 
-### Installation
+The fastest way to get started:
+
+```bash
+# Make the start script executable (first time only)
+chmod +x start.sh
+
+# Run the setup wizard
+./start.sh
+```
+
+The interactive script will guide you through configuration and deployment.
+
+### Manual Setup
 
 1. Clone the repository:
 ```bash
-git clone https://github.com/yourusername/43v3rMore.git
+git clone https://github.com/37-AN/43v3rMore.git
 cd 43v3rMore
 ```
 
-2. Copy environment template:
+2. Copy environment templates:
 ```bash
 cp .env.template .env
+cp frontend/.env.example frontend/.env
 ```
 
-3. Edit `.env` with your credentials
+3. Edit configuration files with your credentials
 
-4. Start services with Docker:
+4. Start all services:
 ```bash
+# Development mode (with hot reload)
+docker-compose -f docker-compose.dev.yml up
+
+# Production mode
 docker-compose up -d
 ```
 
-5. Or run locally:
-```bash
-python -m venv venv
-source venv/bin/activate  # On Windows: venv\Scripts\activate
-pip install -r requirements.txt
-uvicorn src.api.main:app --reload
-```
+5. Access the application:
+- **Frontend**: http://localhost:3000
+- **Backend API**: http://localhost:8000
+- **API Docs**: http://localhost:8000/docs
 
 ### Running Tests
 
@@ -74,19 +93,30 @@ pytest --cov=src tests/
 ## Project Structure
 
 ```
-├── src/
-│   ├── quantum_engine/     # Quantum trading engine
-│   ├── api/                # FastAPI backend
-│   ├── database/           # Supabase integration
-│   ├── communication/      # Multi-channel delivery
-│   ├── payments/           # PayFast billing
-│   ├── mcp_servers/        # Claude AI automation
-│   └── utils/              # Utilities
-├── tests/                  # Test suite
-├── config/                 # Configuration files
-├── data/                   # Data storage
-├── docs/                   # Documentation
-└── scripts/                # Automation scripts
+43v3rMore/
+├── frontend/                    # React TypeScript frontend
+│   ├── src/
+│   │   ├── components/         # UI components
+│   │   ├── pages/              # Page components
+│   │   ├── store/              # State management
+│   │   └── lib/                # API client
+│   ├── Dockerfile              # Production build
+│   └── package.json
+├── src/                         # Python backend
+│   ├── api/                    # FastAPI routes
+│   ├── quantum_engine/         # Quantum trading engine
+│   ├── database/               # Database models
+│   ├── communication/          # Multi-channel delivery
+│   ├── payments/               # PayFast billing
+│   ├── mcp_servers/            # Claude AI automation
+│   └── utils/                  # Utilities
+├── tests/                       # Test suite
+├── config/                      # Configuration files
+├── docs/                        # Documentation
+├── docker-compose.yml           # Production setup
+├── docker-compose.dev.yml       # Development setup
+├── start.sh                     # Quick start script
+└── README.md
 ```
 
 ## Usage
@@ -187,7 +217,9 @@ Proprietary - All rights reserved
 - [x] Core quantum engine
 - [x] MT5 integration
 - [x] Signal generation
-- [x] Basic API
+- [x] FastAPI backend
+- [x] React TypeScript frontend
+- [x] Docker setup
 - [x] Database setup
 
 ### Phase 2: Automation (Weeks 3-4)
