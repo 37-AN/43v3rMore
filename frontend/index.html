@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quantum Trading AI - Dashboard</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .header {
+            background: white;
+            border-radius: 12px;
+            padding: 30px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            color: #667eea;
+            margin-bottom: 10px;
+            font-size: 2.5em;
+        }
+
+        .subtitle {
+            color: #666;
+            font-size: 1.1em;
+        }
+
+        .status-card {
+            background: white;
+            border-radius: 12px;
+            padding: 25px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .status-indicator {
+            display: inline-block;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            margin-right: 8px;
+            animation: pulse 2s infinite;
+        }
+
+        .status-online {
+            background: #10b981;
+        }
+
+        .status-offline {
+            background: #ef4444;
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                opacity: 1;
+            }
+            50% {
+                opacity: 0.5;
+            }
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+        .card {
+            background: white;
+            border-radius: 12px;
+            padding: 25px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+        }
+
+        .card-title {
+            font-size: 1.3em;
+            color: #333;
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+
+        .card-value {
+            font-size: 2em;
+            color: #667eea;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .card-label {
+            color: #999;
+            font-size: 0.9em;
+        }
+
+        .btn {
+            background: #667eea;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-size: 1em;
+            cursor: pointer;
+            transition: background 0.3s ease;
+            margin-right: 10px;
+            margin-bottom: 10px;
+        }
+
+        .btn:hover {
+            background: #5568d3;
+        }
+
+        .btn-secondary {
+            background: #64748b;
+        }
+
+        .btn-secondary:hover {
+            background: #475569;
+        }
+
+        .api-response {
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            padding: 15px;
+            margin-top: 15px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9em;
+            max-height: 300px;
+            overflow-y: auto;
+        }
+
+        .loading {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid #f3f3f3;
+            border-top: 3px solid #667eea;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin-left: 10px;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .links {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .link {
+            color: #667eea;
+            text-decoration: none;
+            padding: 10px 15px;
+            background: #f0f4ff;
+            border-radius: 6px;
+            transition: background 0.3s ease;
+        }
+
+        .link:hover {
+            background: #e0e7ff;
+        }
+
+        .error {
+            color: #ef4444;
+            padding: 10px;
+            background: #fee2e2;
+            border-radius: 6px;
+            margin-top: 10px;
+        }
+
+        .success {
+            color: #10b981;
+            padding: 10px;
+            background: #d1fae5;
+            border-radius: 6px;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🔮 Quantum Trading AI</h1>
+            <p class="subtitle">Autonomous AI Trading System Dashboard</p>
+        </div>
+
+        <div class="status-card">
+            <h2 class="card-title">
+                <span class="status-indicator status-offline" id="statusIndicator"></span>
+                API Status: <span id="statusText">Checking...</span>
+            </h2>
+            <div id="statusDetails"></div>
+        </div>
+
+        <div class="grid">
+            <div class="card">
+                <div class="card-title">Backend API</div>
+                <div class="card-value" id="apiVersion">-</div>
+                <div class="card-label">Version</div>
+            </div>
+
+            <div class="card">
+                <div class="card-title">Environment</div>
+                <div class="card-value" id="environment">-</div>
+                <div class="card-label">Current Environment</div>
+            </div>
+
+            <div class="card">
+                <div class="card-title">Response Time</div>
+                <div class="card-value" id="responseTime">-</div>
+                <div class="card-label">Last Health Check</div>
+            </div>
+        </div>
+
+        <div class="card">
+            <h2 class="card-title">Quick Actions</h2>
+            <button class="btn" onclick="checkHealth()">Check Health</button>
+            <button class="btn btn-secondary" onclick="openDocs()">API Docs</button>
+            <button class="btn btn-secondary" onclick="openRedoc()">ReDoc</button>
+            <button class="btn btn-secondary" onclick="getOpenAPI()">OpenAPI Schema</button>
+            <div id="actionResponse"></div>
+        </div>
+
+        <div class="card">
+            <h2 class="card-title">API Endpoints</h2>
+            <div class="links">
+                <a href="http://localhost:8000/health" target="_blank" class="link">🏥 Health Check</a>
+                <a href="http://localhost:8000/docs" target="_blank" class="link">📚 Swagger UI</a>
+                <a href="http://localhost:8000/redoc" target="_blank" class="link">📖 ReDoc</a>
+                <a href="http://localhost:8000/openapi.json" target="_blank" class="link">🔧 OpenAPI Schema</a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const API_URL = 'http://localhost:8000';
+
+        async function checkHealth() {
+            const start = Date.now();
+            const responseDiv = document.getElementById('actionResponse');
+            responseDiv.innerHTML = '<div class="loading"></div> Checking API health...';
+
+            try {
+                const response = await fetch(`${API_URL}/health`);
+                const duration = Date.now() - start;
+                const data = await response.json();
+
+                if (response.ok) {
+                    document.getElementById('statusIndicator').className = 'status-indicator status-online';
+                    document.getElementById('statusText').textContent = 'Online';
+                    document.getElementById('apiVersion').textContent = data.version || '1.0.0';
+                    document.getElementById('environment').textContent = data.environment || 'production';
+                    document.getElementById('responseTime').textContent = `${duration}ms`;
+
+                    responseDiv.innerHTML = `
+                        <div class="success">✓ API is healthy!</div>
+                        <div class="api-response">${JSON.stringify(data, null, 2)}</div>
+                    `;
+                } else {
+                    throw new Error(`HTTP ${response.status}`);
+                }
+            } catch (error) {
+                document.getElementById('statusIndicator').className = 'status-indicator status-offline';
+                document.getElementById('statusText').textContent = 'Offline';
+                responseDiv.innerHTML = `
+                    <div class="error">✗ Failed to connect to API: ${error.message}</div>
+                `;
+            }
+        }
+
+        function openDocs() {
+            window.open(`${API_URL}/docs`, '_blank');
+        }
+
+        function openRedoc() {
+            window.open(`${API_URL}/redoc`, '_blank');
+        }
+
+        async function getOpenAPI() {
+            const responseDiv = document.getElementById('actionResponse');
+            responseDiv.innerHTML = '<div class="loading"></div> Fetching OpenAPI schema...';
+
+            try {
+                const response = await fetch(`${API_URL}/openapi.json`);
+                const data = await response.json();
+
+                responseDiv.innerHTML = `
+                    <div class="success">✓ OpenAPI schema retrieved!</div>
+                    <div class="api-response">${JSON.stringify(data, null, 2)}</div>
+                `;
+            } catch (error) {
+                responseDiv.innerHTML = `
+                    <div class="error">✗ Failed to fetch OpenAPI schema: ${error.message}</div>
+                `;
+            }
+        }
+
+        // Check health on page load
+        window.addEventListener('load', () => {
+            checkHealth();
+            // Auto-refresh every 30 seconds
+            setInterval(checkHealth, 30000);
+        });
+    </script>
+</body>
+</html>
