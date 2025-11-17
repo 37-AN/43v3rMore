@@ -10,6 +10,15 @@ import Signals from '@/pages/Signals';
 import Subscription from '@/pages/Subscription';
 import { useThemeStore } from '@/store/theme';
 
+// Admin Dashboard Pages
+import SystemOverview from '@/pages/admin/SystemOverview';
+import QuantumSignals from '@/pages/admin/QuantumSignals';
+import MT5Monitor from '@/pages/admin/MT5Monitor';
+import UserManagement from '@/pages/admin/UserManagement';
+import FinancialDashboard from '@/pages/admin/FinancialDashboard';
+import Configuration from '@/pages/admin/Configuration';
+import AlertsPerformance from '@/pages/admin/AlertsPerformance';
+
 // Placeholder pages
 const Analysis: React.FC = () => (
   <div className="text-center py-12">
@@ -80,6 +89,18 @@ function App() {
           <Route path="subscription" element={<Subscription />} />
           <Route path="performance" element={<Performance />} />
           <Route path="settings" element={<Settings />} />
+
+          {/* Admin Dashboard Routes */}
+          <Route path="admin">
+            <Route index element={<Navigate to="/admin/overview" replace />} />
+            <Route path="overview" element={<SystemOverview />} />
+            <Route path="quantum-signals" element={<QuantumSignals />} />
+            <Route path="mt5-monitor" element={<MT5Monitor />} />
+            <Route path="users" element={<UserManagement />} />
+            <Route path="financial" element={<FinancialDashboard />} />
+            <Route path="configuration" element={<Configuration />} />
+            <Route path="alerts" element={<AlertsPerformance />} />
+          </Route>
         </Route>
 
         {/* Catch all */}
