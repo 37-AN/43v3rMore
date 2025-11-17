@@ -5,7 +5,10 @@
       "Bash(pip install:*)",
       "Bash(find:*)",
       "Bash(python:*)",
-      "Bash(findstr:*)"
+      "Bash(findstr:*)",
+      "Bash(docker:*)",
+      "Bash(docker-compose:*)",
+      "Bash(npm --version:*)"
     ],
     "deny": [],
     "ask": []
