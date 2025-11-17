@@ -4,7 +4,7 @@ from typing import List, Optional
 import numpy as np
 from qiskit import QuantumCircuit, QuantumRegister, ClassicalRegister, transpile
 from qiskit_aer import AerSimulator
-from qiskit.circuit.library import QFTGate
+from qiskit.circuit.library import QFT
 from loguru import logger
 
 
@@ -112,7 +112,7 @@ class QuantumPhaseEstimator:
                 circuit.cp(phase * power, counting_qubits[i], target_qubit[0])
 
             # Inverse QFT on counting qubits
-            qft_gate = QFTGate(self.num_qubits).inverse()
+            qft_gate = QFT(self.num_qubits).inverse()
             circuit.compose(qft_gate, qubits=list(range(self.num_qubits)), inplace=True)
 
             # Measure counting qubits

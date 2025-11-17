@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from 'react';
-import { Card } from '@/components/ui/Card';
+import Card from '@/components/ui/Card';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/Tabs';
-import { Input } from '@/components/ui/Input';
+import Input from '@/components/ui/Input';
 import { Switch } from '@/components/ui/Switch';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/Select';
-import { Button } from '@/components/ui/Button';
+import Button from '@/components/ui/Button';
 import { Alert } from '@/components/ui/Alert';
 import { Separator } from '@/components/ui/Separator';
-import { Save, RefreshCw, AlertCircle } from 'lucide-react';
+import { Save, RefreshCw } from 'lucide-react';
 import { apiClient } from '@/lib/api';
 
 export const Configuration: React.FC = () => {
@@ -112,7 +112,7 @@ export const Configuration: React.FC = () => {
                   value={config.quantum.default_qubits}
                   min={3}
                   max={10}
-                  onChange={(e) =>
+                  onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
                     setConfig({
                       ...config,
                       quantum: { ...config.quantum, default_qubits: parseInt(e.target.value) },
@@ -179,7 +179,7 @@ export const Configuration: React.FC = () => {
                   min="0.80"
                   max="0.99"
                   value={config.quantum.min_confidence}
-                  onChange={(e) =>
+                  onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
                     setConfig({
                       ...config,
                       quantum: { ...config.quantum, min_confidence: parseFloat(e.target.value) },
@@ -192,7 +192,7 @@ export const Configuration: React.FC = () => {
               </div>
 
               <div className="flex justify-end gap-2 pt-4">
-                <Button variant="outline" onClick={fetchConfig} disabled={saving}>
+                <Button variant="secondary" onClick={fetchConfig} disabled={saving}>
                   <RefreshCw className="h-4 w-4 mr-2" />
                   Reset
                 </Button>
@@ -213,7 +213,7 @@ export const Configuration: React.FC = () => {
                 <label className="block text-sm font-medium mb-2">MT5 Server</label>
                 <Input
                   value={config.mt5.server}
-                  onChange={(e) =>
+                  onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
                     setConfig({
                       ...config,
                       mt5: { ...config.mt5, server: e.target.value },
@@ -264,7 +264,7 @@ export const Configuration: React.FC = () => {
                   min="0.01"
                   max="10.0"
                   value={config.mt5.max_position_size}
-                  onChange={(e) =>
+                  onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
                     setConfig({
                       ...config,
                       mt5: { ...config.mt5, max_position_size: parseFloat(e.target.value) },
@@ -281,7 +281,7 @@ export const Configuration: React.FC = () => {
                   min="0.1"
                   max="5.0"
                   value={config.mt5.risk_per_trade}
-                  onChange={(e) =>
+                  onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
                     setConfig({
                       ...config,
                       mt5: { ...config.mt5, risk_per_trade: parseFloat(e.target.value) },
@@ -291,7 +291,7 @@ export const Configuration: React.FC = () => {
               </div>
 
               <div className="flex justify-end gap-2 pt-4">
-                <Button variant="outline" onClick={fetchConfig}>
+                <Button variant="secondary" onClick={fetchConfig}>
                   <RefreshCw className="h-4 w-4 mr-2" />
                   Reset
                 </Button>
@@ -340,7 +340,7 @@ export const Configuration: React.FC = () => {
               </div>
 
               <div className="flex justify-end gap-2 pt-4">
-                <Button variant="outline" onClick={fetchConfig}>
+                <Button variant="secondary" onClick={fetchConfig}>
                   <RefreshCw className="h-4 w-4 mr-2" />
                   Reset
                 </Button>
@@ -385,7 +385,7 @@ export const Configuration: React.FC = () => {
               </Alert>
 
               <div className="flex justify-end gap-2 pt-4">
-                <Button variant="outline" onClick={fetchConfig}>
+                <Button variant="secondary" onClick={fetchConfig}>
                   <RefreshCw className="h-4 w-4 mr-2" />
                   Reset
                 </Button>

@@ -1,18 +1,15 @@
 import React, { useState, useEffect } from 'react';
-import { Card } from '@/components/ui/Card';
+import Card from '@/components/ui/Card';
 import StatCard from '@/components/dashboard/StatCard';
-import { Button } from '@/components/ui/Button';
-import { Badge } from '@/components/ui/Badge';
-import { Table } from '@/components/ui/Table';
-import { Alert } from '@/components/ui/Alert';
-import { Activity, DollarSign, TrendingUp, TrendingDown, RefreshCw } from 'lucide-react';
+import Button from '@/components/ui/Button';
+import Badge from '@/components/ui/Badge';
+import Alert from '@/components/ui/Alert';
+import { Activity, DollarSign, TrendingUp, RefreshCw } from 'lucide-react';
 import { apiClient } from '@/lib/api';
-import { formatCurrency, formatRelativeTime } from '@/lib/utils';
+import { formatCurrency } from '@/lib/utils';
 
 export const MT5Monitor: React.FC = () => {
   const [mt5Status, setMt5Status] = useState<any>(null);
-  const [trades, setTrades] = useState<any[]>([]);
-  const [loading, setLoading] = useState(true);
   const [activeTab, setActiveTab] = useState<'open' | 'closed'>('open');
 
   useEffect(() => {
@@ -21,17 +18,10 @@ export const MT5Monitor: React.FC = () => {
 
   const fetchData = async () => {
     try {
-      setLoading(true);
-      const [statusData, tradesData] = await Promise.all([
-        apiClient.getMT5Status(),
-        apiClient.getTrades({ status: activeTab, limit: 50 }),
-      ]);
+      const statusData = await apiClient.getMT5Status();
       setMt5Status(statusData);
-      setTrades(tradesData.trades || []);
     } catch (err) {
       console.error('Failed to fetch MT5 data:', err);
-    } finally {
-      setLoading(false);
     }
   };
 
@@ -81,7 +71,7 @@ export const MT5Monitor: React.FC = () => {
             MetaTrader 5 connection and trading activity
           </p>
         </div>
-        <Button onClick={fetchData} variant="outline">
+        <Button onClick={fetchData} variant="secondary">
           <RefreshCw className="h-4 w-4 mr-2" />
           Refresh
         </Button>
@@ -93,7 +83,7 @@ export const MT5Monitor: React.FC = () => {
         title={mt5Status?.connected ? 'MT5 Connected' : 'MT5 Disconnected'}
         description={
           mt5Status?.connected
-            ? `Account: ${mt5Status?.account} | Broker: ${mt5Status?.broker} | Last heartbeat: ${formatRelativeTime(mt5Status?.last_heartbeat)}`
+            ? `Account: ${mt5Status?.account} | Broker: ${mt5Status?.broker} | Last heartbeat: ${new Date(mt5Status?.last_heartbeat).toLocaleString()}`
             : 'MT5 connection is currently unavailable. Please check your configuration.'
         }
       />
@@ -135,13 +125,13 @@ export const MT5Monitor: React.FC = () => {
           </h2>
           <div className="flex gap-2">
             <Button
-              variant={activeTab === 'open' ? 'default' : 'outline'}
+              variant={activeTab === 'open' ? 'primary' : 'secondary'}
               onClick={() => setActiveTab('open')}
             >
               Open
             </Button>
             <Button
-              variant={activeTab === 'closed' ? 'default' : 'outline'}
+              variant={activeTab === 'closed' ? 'primary' : 'secondary'}
               onClick={() => setActiveTab('closed')}
             >
               Closed
@@ -171,7 +161,7 @@ export const MT5Monitor: React.FC = () => {
                   <tr key={trade.id} className="border-b border-slate-100 dark:border-slate-800">
                     <td className="p-3 font-medium">{trade.symbol}</td>
                     <td className="p-3">
-                      <Badge variant={trade.type === 'BUY' ? 'success' : 'destructive'}>
+                      <Badge variant={trade.type === 'BUY' ? 'success' : 'error'}>
                         {trade.type}
                       </Badge>
                     </td>
@@ -189,7 +179,7 @@ export const MT5Monitor: React.FC = () => {
                     <td className="p-3 text-right">
                       <Button
                         size="sm"
-                        variant="outline"
+                        variant="secondary"
                         onClick={() => handleCloseTrade(trade.id)}
                       >
                         Close

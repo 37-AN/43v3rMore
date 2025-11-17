@@ -1,8 +1,8 @@
 import React from 'react';
-import { Card } from '@/components/ui/Card';
+import Card from '@/components/ui/Card';
 import { cn } from '@/lib/utils';
 import { Circle, RefreshCw } from 'lucide-react';
-import { Button } from '@/components/ui/Button';
+import Button from '@/components/ui/Button';
 
 export interface ServiceHealth {
   name: string;

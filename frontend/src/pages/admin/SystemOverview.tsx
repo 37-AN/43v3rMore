@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import StatCard from '@/components/dashboard/StatCard';
-import ServiceHealthCard, { ServiceHealth } from '@/components/dashboard/ServiceHealthCard';
-import { Card } from '@/components/ui/Card';
-import { Alert } from '@/components/ui/Alert';
+import ServiceHealthCard, { type ServiceHealth } from '@/components/dashboard/ServiceHealthCard';
+import Card from '@/components/ui/Card';
+import Alert from '@/components/ui/Alert';
 import { Activity, Users, TrendingUp, DollarSign, Zap, Clock } from 'lucide-react';
 import { apiClient } from '@/lib/api';
 import { wsClient } from '@/lib/websocket';
-import { formatCurrency, formatPercent, formatRelativeTime } from '@/lib/utils';
+import { formatCurrency, formatPercentage } from '@/lib/utils';
 
 interface OverviewData {
   active_users: number;
@@ -67,7 +67,7 @@ export const SystemOverview: React.FC = () => {
     });
   };
 
-  const handleSignalGenerated = (signal: any) => {
+  const handleSignalGenerated = () => {
     setData((prev) => {
       if (!prev) return prev;
       return {
@@ -77,7 +77,7 @@ export const SystemOverview: React.FC = () => {
     });
   };
 
-  const handleUserRegistered = (user: any) => {
+  const handleUserRegistered = () => {
     setData((prev) => {
       if (!prev) return prev;
       return {
@@ -137,7 +137,7 @@ export const SystemOverview: React.FC = () => {
         />
         <StatCard
           title="Signal Accuracy"
-          value={formatPercent(data.current_accuracy)}
+          value={formatPercentage(data.current_accuracy)}
           icon={TrendingUp}
           color="green"
           trend={{ value: 2.5, label: 'vs last week' }}
@@ -193,7 +193,7 @@ export const SystemOverview: React.FC = () => {
                   {event.message}
                 </p>
                 <p className="text-xs text-slate-600 dark:text-slate-400 mt-1">
-                  {formatRelativeTime(event.timestamp)}
+                  {new Date(event.timestamp).toLocaleString()}
                 </p>
               </div>
             </div>

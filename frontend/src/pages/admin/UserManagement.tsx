@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from 'react';
-import { Card } from '@/components/ui/Card';
+import Card from '@/components/ui/Card';
 import StatCard from '@/components/dashboard/StatCard';
-import { Button } from '@/components/ui/Button';
-import { Badge } from '@/components/ui/Badge';
-import { Input } from '@/components/ui/Input';
+import Button from '@/components/ui/Button';
+import Badge from '@/components/ui/Badge';
+import Input from '@/components/ui/Input';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/Select';
 import { Users, UserPlus, UserCheck, UserX, Search } from 'lucide-react';
 import { apiClient } from '@/lib/api';
-import { formatCurrency, formatRelativeTime } from '@/lib/utils';
+import { formatCurrency } from '@/lib/utils';
 
 interface User {
   id: string;
@@ -23,7 +23,6 @@ interface User {
 
 export const UserManagement: React.FC = () => {
   const [users, setUsers] = useState<User[]>([]);
-  const [loading, setLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState('');
   const [statusFilter, setStatusFilter] = useState('all');
   const [planFilter, setPlanFilter] = useState('all');
@@ -34,7 +33,6 @@ export const UserManagement: React.FC = () => {
 
   const fetchUsers = async () => {
     try {
-      setLoading(true);
       const params: any = { limit: 100 };
       if (statusFilter !== 'all') params.status = statusFilter;
       if (planFilter !== 'all') params.plan = planFilter;
@@ -44,8 +42,6 @@ export const UserManagement: React.FC = () => {
     } catch (err) {
       console.error('Failed to fetch users:', err);
       setUsers(mockUsers);
-    } finally {
-      setLoading(false);
     }
   };
 
@@ -101,11 +97,11 @@ export const UserManagement: React.FC = () => {
       case 'premium':
         return 'default';
       case 'pro':
-        return 'secondary';
+        return 'info';
       case 'basic':
-        return 'outline';
+        return 'default';
       default:
-        return 'outline';
+        return 'default';
     }
   };
 
@@ -116,9 +112,9 @@ export const UserManagement: React.FC = () => {
       case 'trial':
         return 'warning';
       case 'inactive':
-        return 'destructive';
+        return 'error';
       default:
-        return 'outline';
+        return 'default';
     }
   };
 
@@ -131,7 +127,7 @@ export const UserManagement: React.FC = () => {
             Manage subscribers and user accounts
           </p>
         </div>
-        <Button>
+        <Button variant="primary">
           <UserPlus className="h-4 w-4 mr-2" />
           Add User
         </Button>
@@ -175,7 +171,7 @@ export const UserManagement: React.FC = () => {
             <Input
               placeholder="Search users by name or email..."
               value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) => setSearchTerm(e.target.value)}
               className="pl-10"
             />
           </div>
@@ -239,13 +235,13 @@ export const UserManagement: React.FC = () => {
                     {formatCurrency(user.mrr_contribution, 'ZAR')}
                   </td>
                   <td className="p-3 text-sm text-slate-600 dark:text-slate-400">
-                    {formatRelativeTime(user.created_at)}
+                    {new Date(user.created_at).toLocaleDateString()}
                   </td>
                   <td className="p-3 text-sm text-slate-600 dark:text-slate-400">
-                    {formatRelativeTime(user.last_active)}
+                    {new Date(user.last_active).toLocaleDateString()}
                   </td>
                   <td className="p-3 text-right">
-                    <Button size="sm" variant="outline">
+                    <Button size="sm" variant="secondary">
                       View
                     </Button>
                   </td>

@@ -1,19 +1,16 @@
 import React, { useState, useEffect } from 'react';
-import { Card } from '@/components/ui/Card';
+import Card from '@/components/ui/Card';
 import StatCard from '@/components/dashboard/StatCard';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/Tabs';
-import { Badge } from '@/components/ui/Badge';
-import { Button } from '@/components/ui/Button';
-import { Alert } from '@/components/ui/Alert';
+import Badge from '@/components/ui/Badge';
+import Button from '@/components/ui/Button';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip as RechartsTooltip, Legend, ResponsiveContainer } from 'recharts';
 import { AlertCircle, CheckCircle, XCircle, Activity, Cpu, HardDrive, Network } from 'lucide-react';
 import { apiClient } from '@/lib/api';
-import { formatRelativeTime } from '@/lib/utils';
 
 export const AlertsPerformance: React.FC = () => {
   const [alerts, setAlerts] = useState<any[]>([]);
   const [metrics, setMetrics] = useState<any>(null);
-  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     fetchData();
@@ -21,7 +18,6 @@ export const AlertsPerformance: React.FC = () => {
 
   const fetchData = async () => {
     try {
-      setLoading(true);
       const [alertsData, metricsData] = await Promise.all([
         apiClient.getAlerts({ status: 'active' }),
         apiClient.getPerformanceMetrics({ timeframe: '1h' }),
@@ -32,8 +28,6 @@ export const AlertsPerformance: React.FC = () => {
       console.error('Failed to fetch alerts/performance data:', err);
       setAlerts(mockAlerts);
       setMetrics(mockMetrics);
-    } finally {
-      setLoading(false);
     }
   };
 
@@ -93,15 +87,15 @@ export const AlertsPerformance: React.FC = () => {
   const getSeverityBadge = (severity: string) => {
     switch (severity) {
       case 'critical':
-        return <Badge variant="destructive">Critical</Badge>;
+        return <Badge variant="error">Critical</Badge>;
       case 'high':
-        return <Badge variant="destructive">High</Badge>;
+        return <Badge variant="error">High</Badge>;
       case 'medium':
         return <Badge variant="warning">Medium</Badge>;
       case 'low':
         return <Badge variant="default">Low</Badge>;
       default:
-        return <Badge variant="outline">{severity}</Badge>;
+        return <Badge variant="default">{severity}</Badge>;
     }
   };
 
@@ -178,20 +172,20 @@ export const AlertsPerformance: React.FC = () => {
                       {alert.message}
                     </p>
                     <p className="text-xs text-slate-500 dark:text-slate-500">
-                      {formatRelativeTime(alert.timestamp)}
+                      {new Date(alert.timestamp).toLocaleString()}
                     </p>
                   </div>
                   <div className="flex gap-2">
                     {alert.status === 'active' && (
                       <Button
                         size="sm"
-                        variant="outline"
+                        variant="secondary"
                         onClick={() => handleAcknowledge(alert.id)}
                       >
                         Acknowledge
                       </Button>
                     )}
-                    <Button size="sm" onClick={() => handleResolve(alert.id)}>
+                    <Button size="sm" variant="primary" onClick={() => handleResolve(alert.id)}>
                       Resolve
                     </Button>
                   </div>
@@ -272,7 +266,7 @@ export const AlertsPerformance: React.FC = () => {
                   <span className="font-medium">12</span>
                 </div>
                 <div className="flex items-center justify-between">
-                  <span className="text-sm">Slow Queries (>1s)</span>
+                  <span className="text-sm">Slow Queries (&gt;1s)</span>
                   <span className="font-medium text-yellow-600">3</span>
                 </div>
                 <div className="flex items-center justify-between">

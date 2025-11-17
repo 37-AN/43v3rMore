@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from 'react';
-import { Card } from '@/components/ui/Card';
+import Card from '@/components/ui/Card';
 import StatCard from '@/components/dashboard/StatCard';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/Tabs';
-import { Alert } from '@/components/ui/Alert';
-import { Badge } from '@/components/ui/Badge';
+import Alert from '@/components/ui/Alert';
+import Badge from '@/components/ui/Badge';
 import { LineChart, Line, BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip as RechartsTooltip, Legend, ResponsiveContainer } from 'recharts';
 import { Zap, TrendingUp, Activity, AlertCircle } from 'lucide-react';
 import { apiClient } from '@/lib/api';
-import { formatPercent, formatRelativeTime } from '@/lib/utils';
+import { formatPercentage } from '@/lib/utils';
 
 export const QuantumSignals: React.FC = () => {
   const [performance, setPerformance] = useState<any>(null);
@@ -23,7 +23,7 @@ export const QuantumSignals: React.FC = () => {
   const fetchData = async () => {
     try {
       const [perfData, signalsData] = await Promise.all([
-        apiClient.getSignalPerformance('7d'),
+        apiClient.getSignalPerformance({ period: '7d' }),
         apiClient.getSignals({ limit: 20 }),
       ]);
       setPerformance(perfData);
@@ -75,7 +75,7 @@ export const QuantumSignals: React.FC = () => {
         />
         <StatCard
           title="Current Accuracy"
-          value={formatPercent(performance?.current_accuracy || 0.96)}
+          value={formatPercentage(performance?.current_accuracy || 0.96)}
           icon={TrendingUp}
           color="green"
           trend={{ value: 2.1, label: 'vs last week' }}
@@ -88,7 +88,7 @@ export const QuantumSignals: React.FC = () => {
         />
         <StatCard
           title="Avg Confidence"
-          value={formatPercent(performance?.avg_confidence || 0.89)}
+          value={formatPercentage(performance?.avg_confidence || 0.89)}
           icon={AlertCircle}
           color="yellow"
         />
@@ -111,7 +111,7 @@ export const QuantumSignals: React.FC = () => {
                   className="flex items-center justify-between p-4 rounded-lg border border-slate-200 dark:border-slate-700"
                 >
                   <div className="flex items-center gap-4">
-                    <Badge variant={signal.action === 'BUY' ? 'success' : 'destructive'}>
+                    <Badge variant={signal.action === 'BUY' ? 'success' : 'error'}>
                       {signal.action}
                     </Badge>
                     <div>
@@ -122,9 +122,9 @@ export const QuantumSignals: React.FC = () => {
                     </div>
                   </div>
                   <div className="text-right">
-                    <p className="font-medium">{formatPercent(signal.confidence)}</p>
+                    <p className="font-medium">{formatPercentage(signal.confidence)}</p>
                     <p className="text-sm text-slate-600 dark:text-slate-400">
-                      {formatRelativeTime(signal.created_at)}
+                      {new Date(signal.created_at).toLocaleString()}
                     </p>
                   </div>
                 </div>

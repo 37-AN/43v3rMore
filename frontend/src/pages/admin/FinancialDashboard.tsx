@@ -1,37 +1,50 @@
-import React, { useState, useEffect } from 'react';
-import { Card } from '@/components/ui/Card';
+import React, { useEffect } from 'react';
+import Card from '@/components/ui/Card';
 import StatCard from '@/components/dashboard/StatCard';
 import { Progress } from '@/components/ui/Progress';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/Tabs';
-import { Badge } from '@/components/ui/Badge';
-import { LineChart, Line, BarChart, Bar, PieChart, Pie, Cell, XAxis, YAxis, CartesianGrid, Tooltip as RechartsTooltip, Legend, ResponsiveContainer } from 'recharts';
+import Badge from '@/components/ui/Badge';
+import { LineChart, Line, PieChart, Pie, Cell, XAxis, YAxis, CartesianGrid, Tooltip as RechartsTooltip, Legend, ResponsiveContainer } from 'recharts';
 import { DollarSign, TrendingUp, CreditCard, Target } from 'lucide-react';
 import { apiClient } from '@/lib/api';
-import { formatCurrency, formatRelativeTime } from '@/lib/utils';
+import { formatCurrency } from '@/lib/utils';
+
+// Helper function to format relative time
+const formatRelativeTime = (dateString: string) => {
+  const date = new Date(dateString);
+  const now = new Date();
+  const diffMs = now.getTime() - date.getTime();
+  const diffMins = Math.floor(diffMs / 60000);
+  const diffHours = Math.floor(diffMs / 3600000);
+  const diffDays = Math.floor(diffMs / 86400000);
+
+  if (diffMins < 60) {
+    return `${diffMins} minutes ago`;
+  } else if (diffHours < 24) {
+    return `${diffHours} hours ago`;
+  } else if (diffDays < 7) {
+    return `${diffDays} days ago`;
+  } else {
+    return date.toLocaleDateString();
+  }
+};
 
 export const FinancialDashboard: React.FC = () => {
-  const [revenueData, setRevenueData] = useState<any>(null);
-  const [payments, setPayments] = useState<any[]>([]);
-  const [loading, setLoading] = useState(true);
-
   useEffect(() => {
     fetchData();
   }, []);
 
   const fetchData = async () => {
     try {
-      setLoading(true);
+      // Future implementation for fetching financial data
       const [revenue, paymentsData] = await Promise.all([
-        apiClient.getRevenue('month'),
+        apiClient.getRevenue({ period: 'month' }),
         apiClient.getPayments({ limit: 20 }),
       ]);
-      setRevenueData(revenue);
-      setPayments(paymentsData.payments || mockPayments);
+      console.log('Revenue data:', revenue);
+      console.log('Payments data:', paymentsData);
     } catch (err) {
       console.error('Failed to fetch financial data:', err);
-      setPayments(mockPayments);
-    } finally {
-      setLoading(false);
     }
   };
 
@@ -94,9 +107,9 @@ export const FinancialDashboard: React.FC = () => {
       case 'pending':
         return <Badge variant="warning">Pending</Badge>;
       case 'failed':
-        return <Badge variant="destructive">Failed</Badge>;
+        return <Badge variant="error">Failed</Badge>;
       default:
-        return <Badge variant="outline">{status}</Badge>;
+        return <Badge variant="default">{status}</Badge>;
     }
   };
 
@@ -190,7 +203,7 @@ export const FinancialDashboard: React.FC = () => {
                     cx="50%"
                     cy="50%"
                     labelLine={false}
-                    label={({ name, percent }) => `${name}: ${(percent * 100).toFixed(0)}%`}
+                    label={({ name, percent }) => `${name}: ${(percent ? percent * 100 : 0).toFixed(0)}%`}
                     outerRadius={80}
                     fill="#8884d8"
                     dataKey="value"
