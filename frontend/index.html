@@ -201,6 +201,46 @@
             border-radius: 6px;
             margin-top: 10px;
         }
+
+        .disclaimer {
+            background: #fef3c7;
+            border: 2px solid #f59e0b;
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .disclaimer-title {
+            font-size: 1.3em;
+            color: #92400e;
+            margin-bottom: 12px;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+        }
+
+        .disclaimer-icon {
+            font-size: 1.5em;
+            margin-right: 10px;
+        }
+
+        .disclaimer-text {
+            color: #78350f;
+            line-height: 1.6;
+            margin-bottom: 10px;
+        }
+
+        .disclaimer-text strong {
+            font-weight: 700;
+        }
+
+        .disclaimer-list {
+            margin-left: 20px;
+            margin-top: 10px;
+            color: #78350f;
+            line-height: 1.8;
+        }
     </style>
 </head>
 <body>
@@ -208,6 +248,26 @@
         <div class="header">
             <h1>🔮 Quantum Trading AI</h1>
             <p class="subtitle">Autonomous AI Trading System Dashboard</p>
+        </div>
+
+        <div class="disclaimer">
+            <div class="disclaimer-title">
+                <span class="disclaimer-icon">⚠️</span>
+                Risk Disclosure & Legal Notice
+            </div>
+            <div class="disclaimer-text">
+                <strong>Trading involves significant risk of loss.</strong> The Quantum Trading AI system is experimental technology using quantum computing algorithms. By using this service, you acknowledge and accept the following:
+            </div>
+            <ul class="disclaimer-list">
+                <li><strong>No Guarantees:</strong> Past performance and quantum algorithm accuracy are not indicative of future results.</li>
+                <li><strong>Experimental Technology:</strong> Quantum phase estimation is cutting-edge technology with inherent uncertainties.</li>
+                <li><strong>Financial Risk:</strong> You may lose some or all of your invested capital. Only trade with money you can afford to lose.</li>
+                <li><strong>Not Financial Advice:</strong> Signals provided are for informational purposes only and do not constitute financial advice.</li>
+                <li><strong>FAIS Compliance:</strong> This service operates under South African financial regulations. Verify regulatory status before trading.</li>
+            </ul>
+            <div class="disclaimer-text" style="margin-top: 15px;">
+                <strong>Beta Testing Phase:</strong> This system is in active development. Features may change without notice. Use at your own risk.
+            </div>
         </div>
 
         <div class="status-card">
