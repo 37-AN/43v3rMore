@@ -8,6 +8,7 @@ from datetime import datetime, timezone
 from loguru import logger
 
 from .routes import router
+from .dashboard_routes import router as dashboard_router
 from .models import HealthResponse, ErrorResponse
 from ..utils.config import get_settings
 
@@ -124,6 +125,7 @@ async def root():
 
 # Include routers
 app.include_router(router)
+app.include_router(dashboard_router)
 
 
 if __name__ == "__main__":
