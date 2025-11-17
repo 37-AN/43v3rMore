@@ -53,6 +53,23 @@ services:
         condition: service_healthy
     restart: unless-stopped
 
+  # Frontend application
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: quantum-frontend
+    ports:
+      - "3000:3000"
+    environment:
+      - VITE_API_URL=http://localhost:8000/api/v1
+    volumes:
+      - ./frontend/src:/app/src
+      - ./frontend/public:/app/public
+    depends_on:
+      - app
+    restart: unless-stopped
+
 volumes:
   postgres_data:
   redis_data:

@@ -8,14 +8,22 @@ WORKDIR /app
 RUN apt-get update && apt-get install -y \
     build-essential \
     curl \
+    git \
+    gcc \
+    g++ \
+    gfortran \
+    libopenblas-dev \
+    libssl-dev \
+    libffi-dev \
+    cmake \
     && rm -rf /var/lib/apt/lists/*
 
 # Copy requirements
-COPY requirements.txt .
+COPY requirements-docker.txt .
 
 # Install Python dependencies
-RUN pip install --no-cache-dir --upgrade pip && \
-    pip install --no-cache-dir -r requirements.txt
+RUN pip install --no-cache-dir --upgrade pip setuptools wheel && \
+    pip install --no-cache-dir -r requirements-docker.txt
 
 # Production stage
 FROM python:3.11-slim
