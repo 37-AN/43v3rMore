@@ -53,7 +53,7 @@ def mock_price_data():
     import numpy as np
     from datetime import datetime, timedelta
 
-    dates = pd.date_range(end=datetime.now(), periods=100, freq="H")
+    dates = pd.date_range(end=datetime.now(), periods=100, freq="h")
     prices = 1.1000 + np.cumsum(np.random.randn(100) * 0.001)
 
     return pd.DataFrame({

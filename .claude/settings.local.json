@@ -10,7 +10,12 @@
       "Bash(npm install:*)",
       "Bash(npm run build:*)",
       "Bash(mkdir:*)",
-      "Bash(docker ps:*)"
+      "Bash(docker ps:*)",
+      "Bash(python -m pytest:*)",
+      "Bash(pip install:*)",
+      "Bash(find:*)",
+      "Bash(python:*)",
+      "Bash(findstr:*)"
     ],
     "deny": [],
     "ask": []
